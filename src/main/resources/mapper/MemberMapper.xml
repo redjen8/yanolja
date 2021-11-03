@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.redjen.yanolja.mapper.MemberMapper">
-    <select id="findEveryMember" resultType="com.redjen.yanolja.model.Member">
-        SELECT * FROM member WHERE memberIdx = 3
+    <select id="searchMemberByIdx" resultType="com.redjen.yanolja.model.Member">
+        SELECT * FROM member WHERE memberIdx = #{memberIdx}
     </select>
 </mapper>

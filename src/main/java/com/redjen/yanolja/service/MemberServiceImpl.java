@@ -2,17 +2,20 @@ package com.redjen.yanolja.service;
 
 import com.redjen.yanolja.mapper.MemberMapper;
 import com.redjen.yanolja.model.Member;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService{
+    private MemberMapper memberMapper;
 
-    MemberMapper memberMapper;
+    @Autowired
+    public MemberServiceImpl(MemberMapper memberMapper) {
+        this.memberMapper = memberMapper;
+    }
 
     @Override
-    public Member selectEveryMember() {
-        return memberMapper.searchEveryMember();
+    public Member searchMemberByIdx(int memberIdx) {
+        return memberMapper.searchMemberByIdx(memberIdx);
     }
 }
