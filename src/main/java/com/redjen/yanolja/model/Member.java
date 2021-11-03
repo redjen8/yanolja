@@ -1,5 +1,6 @@
 package com.redjen.yanolja.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,10 @@ public class Member {
     private int memberIdx;
     private int cartItemIdx;
     private String email;
+
+    @JsonIgnore
     private String password;
+
     private String phoneNumber;
     private int point;
     private String nickname;

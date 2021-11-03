@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.redjen.yanolja.mapper.RoomMapper">
+    <resultMap type="com.redjen.yanolja.model.Room" id="roomMap">
+        <id property="roomIdx" column="roomIdx"/>
+        <id property="companyIdx" column="companyIdx"/>
+        <id property="roomName" column="roomName"/>
+        <id property="roomShortInfo" column="roomShortInfo"/>
+        <id property="roomRemainCnt" column="roomRemainCnt"/>
+        <id property="bSookbak" column="bSookbak"/>
+        <id property="bDaesil" column="bDaesil"/>
+        <id property="maxPersonCnt" column="maxPersonCnt"/>
+        <id property="defaultPersonCnt" column="defaultPersonCnt"/>
+        <id property="roomDescription" column="roomDescription"/>
+        <id property="roomStatus" column="roomStatus"/>
+        <id property="roomCategory" column="roomCategory"/>
+        <id property="roomPrice" column="roomPrice"/>
+    </resultMap>
+
+    <select id="searchAvailableRoomList" resultMap="roomMap">
+    <![CDATA[
+        SELECT
+        roomName,
+        roomShortInfo,
+        IF((room.bSookbak=1 and DATEDIFF(#{conditionStart}, #{conditionEnd})=-1),dayPrice,timePrice) AS roomPrice,
+        roomDescription,
+        roomStatus,
+        roomCategory,
+        roomRemainCnt,
+        defaultPersonCnt,
+        maxPersonCnt
+        FROM room
+        INNER JOIN reservation ON room.roomIdx = reservation.roomIdx
+        INNER JOIN roomprice r on room.roomIdx = r.roomIdx
+        WHERE
+        reserveStatus='active'
+        AND
+        (
+            #{conditionStart} >= reservation.reserveEnd
+            OR
+            #{conditionEnd} <= reservation.reserveStart
+            )
+    ]]>
+        GROUP BY room.roomIdx;
+    </select>
+</mapper>

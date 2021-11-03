@@ -1,15 +1,16 @@
 package com.redjen.yanolja.mapper;
 
 import com.redjen.yanolja.model.Member;
+import com.redjen.yanolja.model.Room;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @Mapper
-public interface MemberMapper {
+public interface RoomMapper {
 
-    Member searchMemberByIdx(int memberIdx);
+    List<Room> searchAvailableRoomList(String conditionStart, String conditionEnd);
 }
 
