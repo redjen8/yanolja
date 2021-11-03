@@ -2,6 +2,7 @@ package com.redjen.yanolja.controller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.redjen.yanolja.mapper.ReservationMapper;
 import com.redjen.yanolja.model.Member;
 import com.redjen.yanolja.model.Room;
 import com.redjen.yanolja.service.MemberService;
@@ -9,10 +10,7 @@ import com.redjen.yanolja.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +25,9 @@ public class ApiController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private ReservationMapper reservationMapper;
 
     @GetMapping("/member/get")
     public ResponseEntity<Map<String, Object>> getMemberByIdx(@RequestParam HashMap<String, String> paramMap) {
@@ -60,6 +61,22 @@ public class ApiController {
         List<Room> availRoomList = roomService.searchCouponAvailableRoomList(conditionStart, conditionEnd, couponIdx);
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("data", availRoomList);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @PostMapping("/reserve/make")
+    public ResponseEntity<Map<String, Object>> makeReservation(@RequestParam HashMap<String, String> paramMap) {
+        int memberIdx = Integer.parseInt(paramMap.get("memberIdx"));
+        int couponIdx = Integer.parseInt(paramMap.get("couponIdx"));
+        int companyIdx = Integer.parseInt(paramMap.get("companyIdx"));
+        int roomIdx = Integer.parseInt(paramMap.get("roomIdx"));
+        boolean reserveType = paramMap.get("reserveType").equals("1");
+        String reserveStart = paramMap.get("reserveStart");
+        String reserveEnd = paramMap.get("reserveEnd");
+        int result = reservationMapper.makeReservation(memberIdx, couponIdx, companyIdx,roomIdx,reserveType,reserveStart,reserveEnd);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("resultCode", result);
+        resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }

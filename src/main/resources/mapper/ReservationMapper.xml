@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.redjen.yanolja.mapper.ReservationMapper">
+    <insert id="makeReservation" useGeneratedKeys="true">
+        INSERT INTO reservation
+        (memberIdx, couponIdx, companyIdx, roomIdx, price, reserveType, reserveStart, reserveEnd)
+        VALUES (
+                  #{memberIdx},
+                  #{couponIdx},
+                  #{companyIdx},
+                  #{roomIdx},
+                  (SELECT IF(#{reserveType}=1, dayPrice, timePrice)
+                              *IFNULL(1-discountRate*0.01, 1)
+                              -IFNULL(discountprice, 0) FROM roomprice
+                  INNER JOIN couponavaillist as couponavail on roomprice.roomIdx = couponavail.roomIdx
+                  INNER JOIN coupon on couponavail.couponIdx = coupon.couponIdx
+                  WHERE couponavail.roomIdx=#{roomIdx} and couponavail.couponidx=#{couponIdx}),
+                  #{reserveType},
+                  #{reserveStart},
+                  #{reserveEnd}
+                )
+    </insert>
+</mapper>
