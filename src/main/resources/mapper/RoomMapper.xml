@@ -45,4 +45,29 @@
     ]]>
         GROUP BY room.roomIdx;
     </select>
+
+    <select id="searchCouponAvailRoomList" resultMap="roomMap">
+    <![CDATA[
+        SELECT
+        roomName,
+        roomShortInfo,
+        IF((room.bSookbak=1 and DATEDIFF(#{conditionStart}, #{conditionEnd})=-1),dayPrice,timePrice) AS roomPrice,
+        roomRemainCnt,
+        defaultPersonCnt,
+        maxPersonCnt
+        FROM room
+        INNER JOIN reservation ON room.roomIdx = reservation.roomIdx
+        INNER JOIN roomprice r on room.roomIdx = r.roomIdx
+        INNER JOIN couponavaillist c on room.roomIdx = c.roomIdx
+        WHERE
+        reserveStatus='active'
+        AND
+        c.couponIdx = #{couponIdx}
+        AND
+        (#{conditionStart} >= reservation.reserveEnd
+        OR
+        #{conditionEnd} <= reservation.reserveStart)
+        ]]>
+        GROUP BY room.roomIdx;
+    </select>
 </mapper>

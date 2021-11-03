@@ -50,4 +50,16 @@ public class ApiController {
         resultMap.put("data", availRoomList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
+    @GetMapping("/room/search/coupon-available")
+    public ResponseEntity<Map<String, Object>> searchCouponAvailableRoomList(@RequestParam HashMap<String, String> paramMap) {
+        String conditionStart = paramMap.get("conditionStart");
+        String conditionEnd = paramMap.get("conditionEnd");
+        int couponIdx = Integer.parseInt(paramMap.get("couponIdx"));
+
+        List<Room> availRoomList = roomService.searchCouponAvailableRoomList(conditionStart, conditionEnd, couponIdx);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("data", availRoomList);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
 }

@@ -22,4 +22,9 @@ public class RoomServiceImpl implements RoomService{
     public List<Room> searchAvailableRoomList(String conditionStart, String conditionEnd) {
         return roomMapper.searchAvailableRoomList(conditionStart, conditionEnd);
     }
+
+    @Override
+    public List<Room> searchCouponAvailableRoomList(String conditionStart, String conditionEnd, int couponIdx) {
+        return roomMapper.searchCouponAvailRoomList(conditionStart, conditionEnd, couponIdx);
+    }
 }
