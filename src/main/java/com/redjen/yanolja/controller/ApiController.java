@@ -3,10 +3,7 @@ package com.redjen.yanolja.controller;
 import com.redjen.yanolja.mapper.CompanyMapper;
 import com.redjen.yanolja.mapper.ReservationMapper;
 import com.redjen.yanolja.mapper.ReviewMapper;
-import com.redjen.yanolja.model.Company;
-import com.redjen.yanolja.model.Member;
-import com.redjen.yanolja.model.Review;
-import com.redjen.yanolja.model.Room;
+import com.redjen.yanolja.model.*;
 import com.redjen.yanolja.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +32,9 @@ public class ApiController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private CompanyOwnerService companyOwnerService;
 
     @GetMapping("/member/get")
     public ResponseEntity<Map<String, Object>> getMemberByIdx(@RequestParam HashMap<String, String> paramMap) {
@@ -137,6 +137,15 @@ public class ApiController {
         Map<String, Object> resultMap = new HashMap<>();
         List<Company> companyList = companyService.searchCompanyByLikes(listSize);
         resultMap.put("data", companyList);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @GetMapping("/owner/list")
+    public ResponseEntity<Map<String, Object>> searchCompanyOwner(@RequestParam HashMap<String, String> paramMap) {
+        int companyIdx = Integer.parseInt(paramMap.get("companyIdx"));
+        Map<String, Object> resultMap = new HashMap<>();
+        List<CompanyOwner> companyOwnerList = companyOwnerService.searchCompanyOwner(companyIdx);
+        resultMap.put("data", companyOwnerList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }

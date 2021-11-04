@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.redjen.yanolja.mapper.CompanyOwnerMapper">
+
+    <select id="searchCompanyOwner" resultType="com.redjen.yanolja.model.CompanyOwner">
+        SELECT c.companyIdx, ownerName, businessName, ownerAddress, ownerEmail, ownerPhoneNumber, businessNumber
+        FROM companyowner
+                 INNER JOIN company c on companyowner.companyIdx = c.companyIdx
+        WHERE c.companyIdx=#{companyIdx};
+    </select>
+
+</mapper>
