@@ -3,7 +3,9 @@ package com.redjen.yanolja.controller;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.redjen.yanolja.mapper.ReservationMapper;
+import com.redjen.yanolja.mapper.ReviewMapper;
 import com.redjen.yanolja.model.Member;
+import com.redjen.yanolja.model.Review;
 import com.redjen.yanolja.model.Room;
 import com.redjen.yanolja.service.MemberService;
 import com.redjen.yanolja.service.RoomService;
@@ -28,6 +30,9 @@ public class ApiController {
 
     @Autowired
     private ReservationMapper reservationMapper;
+
+    @Autowired
+    private ReviewMapper reviewMapper;
 
     @GetMapping("/member/get")
     public ResponseEntity<Map<String, Object>> getMemberByIdx(@RequestParam HashMap<String, String> paramMap) {
@@ -77,6 +82,41 @@ public class ApiController {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("resultCode", result);
         resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @PostMapping("/review/write")
+    public ResponseEntity<Map<String, Object>> writeNewReview(@RequestParam HashMap<String, String> paramMap) {
+        int memberIdx = Integer.parseInt(paramMap.get("memberIdx"));
+        int companyIdx = Integer.parseInt(paramMap.get("companyIdx"));
+        int roomIdx = Integer.parseInt(paramMap.get("roomIdx"));
+        int reserveIdx = Integer.parseInt(paramMap.get("reserveIdx"));
+        float rating = Float.parseFloat(paramMap.get("rating"));
+        String reviewDescription = paramMap.get("reviewDescription");
+        Map<String, Object> resultMap = new HashMap<>();
+        int result = reviewMapper.insertNewReview(memberIdx, companyIdx, roomIdx, reserveIdx, rating, reviewDescription);
+        resultMap.put("resultCode", result);
+        resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @PostMapping("/review/reply")
+    public ResponseEntity<Map<String, Object>> writeReplyToReview(@RequestParam HashMap<String, String> paramMap) {
+        int reviewIdx = Integer.parseInt(paramMap.get("reviewIdx"));
+        String reviewReply = paramMap.get("reviewReply");
+        Map<String, Object> resultMap = new HashMap<>();
+        int result = reviewMapper.insertReplyToReview(reviewIdx, reviewReply);
+        resultMap.put("resultCode", result);
+        resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @GetMapping("/review/search")
+    public ResponseEntity<Map<String, Object>> searchReviewList(@RequestParam HashMap<String, String> paramMap) {
+        int companyIdx = Integer.parseInt(paramMap.get("companyIdx"));
+        Map<String, Object> resultMap = new HashMap<>();
+        List<Review> reviewList = reviewMapper.searchReviewList(companyIdx);
+        resultMap.put("data", reviewList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }

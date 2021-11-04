@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.redjen.yanolja.mapper.ReviewMapper">
+    <resultMap type="com.redjen.yanolja.model.Review" id="reviewMap">
+        <id property="reviewIdx" column="reviewIdx"/>
+        <id property="memberIdx" column="memberIdx"/>
+        <id property="companyIdx" column="companyIdx"/>
+        <id property="roomIdx" column="roomIdx"/>
+        <id property="reserveIdx" column="reserveIdx"/>
+        <id property="rating" column="rating"/>
+        <id property="reviewDescription" column="reviewDescription"/>
+        <id property="reviewReply" column="reviewReply"/>
+        <id property="createdAt" column="createdAt"/>
+        <association property="member" javaType="com.redjen.yanolja.model.Member">
+            <result property="nickname" column="memberNick"/>
+        </association>
+        <association property="room" javaType="com.redjen.yanolja.model.Room">
+            <result property="roomName" column="roomName"/>
+            <result property="roomCategory" column="roomCategory"/>
+        </association>
+    </resultMap>
+
+    <select id="insertNewReview" resultType="int">
+        INSERT INTO review
+        (memberIdx, companyIdx, roomIdx, reserveIdx, rating, reviewDescription, reviewReply)
+        VALUES
+        (#{memberIdx}, #{companyIdx}, #{roomIdx}, #{reserveIdx}, #{rating}, #{reviewDescription}, null);
+    </select>
+
+    <select id="insertReplyToReview" resultType="int">
+        UPDATE review
+        SET reviewReply = #{reviewReply}
+        WHERE reviewIdx = #{reviewIdx};
+    </select>
+
+    <select id="searchReviewList" resultMap="reviewMap">
+        SELECT roomName, roomCategory, memberNick, rating, reviewDescription, reviewReply, review.createdDate as createdAt
+        FROM review
+                 INNER JOIN company c on review.companyIdx = c.companyIdx
+                 INNER JOIN room r on review.roomIdx = r.roomIdx
+                 INNER JOIN member m on review.memberIdx = m.memberIdx
+        WHERE c.companyIdx=#{companyIdx};
+    </select>
+</mapper>
