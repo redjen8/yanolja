@@ -25,4 +25,12 @@
         ORDER BY COUNT(l.companyIdx) DESC
         LIMIT #{listSize} OFFSET 0;
     </select>
+
+    <select id="searchCompanyByLocation" resultType="com.redjen.yanolja.model.Company">
+        SELECT companyName, companyRating, companyReviewCnt, availTimeStart, minPrice, category, companyImageUrl
+        FROM company
+                 INNER JOIN location l on company.locationIdx = l.locationIdx
+                 INNER JOIN companyimagelist c on company.companyIdx = c.companyIdx
+        WHERE (l.cityInfo=#{searchCondition} OR l.provinceInfo=#{searchCondition});
+    </select>
 </mapper>

@@ -28,4 +28,9 @@ public class CompanyServiceImpl implements CompanyService {
     public List<Company> searchCompanyByLikes(int listSize) {
         return companyMapper.searchCompanyByLikes(listSize);
     }
+
+    @Override
+    public List<Company> searchCompanyByLocation(String searchCondition) {
+        return companyMapper.searchCompanyByLocation(searchCondition);
+    }
 }

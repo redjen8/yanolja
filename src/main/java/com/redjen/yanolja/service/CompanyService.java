@@ -10,4 +10,6 @@ public interface CompanyService {
     List<Company> searchCompanyByReserve(int listSize);
 
     List<Company> searchCompanyByLikes(int listSize);
+
+    List<Company> searchCompanyByLocation(String searchCondition);
 }

@@ -122,7 +122,7 @@ public class ApiController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @GetMapping("/company/list/order-by/reserve")
+    @GetMapping("/company/list/by-reserve")
     public ResponseEntity<Map<String, Object>> searchCompanyByReserve(@RequestParam HashMap<String, String> paramMap) {
         int listSize = Integer.parseInt(paramMap.get("listSize"));
         Map<String, Object> resultMap = new HashMap<>();
@@ -131,11 +131,20 @@ public class ApiController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @GetMapping("/company/list/order-by/likes")
+    @GetMapping("/company/list/by-likes")
     public ResponseEntity<Map<String, Object>> searchCompanyByLikes(@RequestParam HashMap<String, String> paramMap) {
         int listSize = Integer.parseInt(paramMap.get("listSize"));
         Map<String, Object> resultMap = new HashMap<>();
         List<Company> companyList = companyService.searchCompanyByLikes(listSize);
+        resultMap.put("data", companyList);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @GetMapping("/company/list/by-location")
+    public ResponseEntity<Map<String, Object>> searchCompanyByLocation(@RequestParam HashMap<String, String> paramMap) {
+        String searchCondition = paramMap.get("searchCondition");
+        Map<String, Object> resultMap = new HashMap<>();
+        List<Company> companyList = companyService.searchCompanyByLocation(searchCondition);
         resultMap.put("data", companyList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
