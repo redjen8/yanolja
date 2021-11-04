@@ -1,14 +1,13 @@
 package com.redjen.yanolja.controller;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.redjen.yanolja.mapper.CompanyMapper;
 import com.redjen.yanolja.mapper.ReservationMapper;
 import com.redjen.yanolja.mapper.ReviewMapper;
+import com.redjen.yanolja.model.Company;
 import com.redjen.yanolja.model.Member;
 import com.redjen.yanolja.model.Review;
 import com.redjen.yanolja.model.Room;
-import com.redjen.yanolja.service.MemberService;
-import com.redjen.yanolja.service.RoomService;
+import com.redjen.yanolja.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +28,13 @@ public class ApiController {
     private RoomService roomService;
 
     @Autowired
-    private ReservationMapper reservationMapper;
+    private ReservationService reservationService;
 
     @Autowired
-    private ReviewMapper reviewMapper;
+    private ReviewService reviewService;
+
+    @Autowired
+    private CompanyService companyService;
 
     @GetMapping("/member/get")
     public ResponseEntity<Map<String, Object>> getMemberByIdx(@RequestParam HashMap<String, String> paramMap) {
@@ -78,7 +80,7 @@ public class ApiController {
         boolean reserveType = paramMap.get("reserveType").equals("1");
         String reserveStart = paramMap.get("reserveStart");
         String reserveEnd = paramMap.get("reserveEnd");
-        int result = reservationMapper.makeReservation(memberIdx, couponIdx, companyIdx,roomIdx,reserveType,reserveStart,reserveEnd);
+        int result = reservationService.makeReservation(memberIdx, couponIdx, companyIdx,roomIdx,reserveType,reserveStart,reserveEnd);
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("resultCode", result);
         resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
@@ -94,7 +96,7 @@ public class ApiController {
         float rating = Float.parseFloat(paramMap.get("rating"));
         String reviewDescription = paramMap.get("reviewDescription");
         Map<String, Object> resultMap = new HashMap<>();
-        int result = reviewMapper.insertNewReview(memberIdx, companyIdx, roomIdx, reserveIdx, rating, reviewDescription);
+        int result = reviewService.insertNewReview(memberIdx, companyIdx, roomIdx, reserveIdx, rating, reviewDescription);
         resultMap.put("resultCode", result);
         resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
@@ -105,7 +107,7 @@ public class ApiController {
         int reviewIdx = Integer.parseInt(paramMap.get("reviewIdx"));
         String reviewReply = paramMap.get("reviewReply");
         Map<String, Object> resultMap = new HashMap<>();
-        int result = reviewMapper.insertReplyToReview(reviewIdx, reviewReply);
+        int result = reviewService.insertReplyToReview(reviewIdx, reviewReply);
         resultMap.put("resultCode", result);
         resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
@@ -115,8 +117,26 @@ public class ApiController {
     public ResponseEntity<Map<String, Object>> searchReviewList(@RequestParam HashMap<String, String> paramMap) {
         int companyIdx = Integer.parseInt(paramMap.get("companyIdx"));
         Map<String, Object> resultMap = new HashMap<>();
-        List<Review> reviewList = reviewMapper.searchReviewList(companyIdx);
+        List<Review> reviewList = reviewService.searchReviewList(companyIdx);
         resultMap.put("data", reviewList);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @GetMapping("/company/list/order-by/reserve")
+    public ResponseEntity<Map<String, Object>> searchCompanyByReserve(@RequestParam HashMap<String, String> paramMap) {
+        int listSize = Integer.parseInt(paramMap.get("listSize"));
+        Map<String, Object> resultMap = new HashMap<>();
+        List<Company> companyList = companyService.searchCompanyByReserve(listSize);
+        resultMap.put("data", companyList);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @GetMapping("/company/list/order-by/likes")
+    public ResponseEntity<Map<String, Object>> searchCompanyByLikes(@RequestParam HashMap<String, String> paramMap) {
+        int listSize = Integer.parseInt(paramMap.get("listSize"));
+        Map<String, Object> resultMap = new HashMap<>();
+        List<Company> companyList = companyService.searchCompanyByLikes(listSize);
+        resultMap.put("data", companyList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }

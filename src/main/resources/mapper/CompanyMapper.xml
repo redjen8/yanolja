@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.redjen.yanolja.mapper.CompanyMapper">
+
+    <select id="searchCompanyByReserve" resultType="com.redjen.yanolja.model.Company">
+        SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl
+        FROM company
+                 INNER JOIN reservation r on company.companyIdx = r.companyIdx
+                 INNER JOIN companyimagelist c on company.companyIdx = c.companyIdx
+        GROUP BY c.companyIdx
+        HAVING COUNT(companyName) >= 0
+        ORDER BY COUNT(companyName) DESC
+        LIMIT #{listSize} OFFSET 0;
+    </select>
+
+    <select id="searchCompanyByLikes" resultType="com.redjen.yanolja.model.Company">
+        SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl
+        FROM company
+                 INNER JOIN companyimagelist c on company.companyIdx = c.companyIdx
+                 INNER JOIN likelist l on company.companyIdx = l.companyIdx
+        GROUP BY l.companyIdx
+        HAVING COUNT(l.companyIdx) > 0
+        ORDER BY COUNT(l.companyIdx) DESC
+        LIMIT #{listSize} OFFSET 0;
+    </select>
+</mapper>
