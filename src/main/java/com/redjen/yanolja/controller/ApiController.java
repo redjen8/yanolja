@@ -34,9 +34,9 @@ public class ApiController {
     @Autowired
     private CompanyOwnerService companyOwnerService;
 
-    @GetMapping("/member/get")
+    @GetMapping("/member/get/{idx}")
     @ApiOperation(value="사용자 정보 조회", notes="해당 인덱스의 사용자 정보를 조회한다.")
-    public ResponseEntity<Map<String, Object>> getMemberByIdx(@RequestParam int idx) {
+    public ResponseEntity<Map<String, Object>> getMemberByIdx(@PathVariable int idx) {
 
         Member member = memberService.searchMemberByIdx(idx);
         Map<String, Object> resultMap = new HashMap<>();
