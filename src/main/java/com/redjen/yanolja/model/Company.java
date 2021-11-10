@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 
 import java.util.List;
 
@@ -14,7 +17,11 @@ import java.util.List;
 public class Company {
 
     private int companyIdx;
+
+    @NotEmpty
+    @Length(min=2, max=30)
     private String companyName;
+
     private float companyRating;
     private int companyReviewCnt;
     private int minPrice;
@@ -27,5 +34,6 @@ public class Company {
     private String reservePolicy;
     private String companyStatus;
 
+    @URL
     private String companyImageUrl;
 }

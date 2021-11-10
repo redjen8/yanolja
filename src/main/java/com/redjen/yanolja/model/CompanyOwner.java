@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Email;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +16,8 @@ public class CompanyOwner {
     private String ownerName;
     private String businessName;
     private String ownerAddress;
+
+    @Email
     private String ownerEmail;
     private String ownerPhoneNumber;
     private String businessNumber;
