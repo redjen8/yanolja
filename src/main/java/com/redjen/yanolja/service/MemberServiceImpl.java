@@ -18,4 +18,10 @@ public class MemberServiceImpl implements MemberService{
     public Member searchMemberByIdx(int memberIdx) {
         return memberMapper.searchMemberByIdx(memberIdx);
     }
+
+    @Override
+    public int deleteMemberByIdx(int memberIdx) {
+        return memberMapper.deleteMemberByIdx(memberIdx);
+    }
+
 }

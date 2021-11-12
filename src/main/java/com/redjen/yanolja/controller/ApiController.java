@@ -40,17 +40,49 @@ public class ApiController {
 
         Member member = memberService.searchMemberByIdx(idx);
         Map<String, Object> resultMap = new HashMap<>();
+
+        if(member == null) {
+            resultMap.put("resultCode", -1);
+            resultMap.put("resultMsg", "해당 인덱스의 사용자가 존재하지 않습니다.");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
         resultMap.put("memberIdx", member.getMemberIdx());
         resultMap.put("email", member.getEmail());
         resultMap.put("phoneNumber", member.getPhoneNumber());
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
+    @DeleteMapping("/member/delete/{idx}")
+    @ApiOperation(value="사용자 탈퇴", notes="해당 인덱스의 사용자를 탈퇴 처리한다.")
+    public ResponseEntity<Map<String, Object>> deleteMemberByIdx(@PathVariable int idx) {
+
+        int res = memberService.deleteMemberByIdx(idx);
+        Map<String, Object> resultMap = new HashMap<>();
+
+        if(res == 1) {
+            resultMap.put("resultCode", 0);
+            resultMap.put("resultMsg", "해당 인덱스의 사용자 정보 삭제를 완료했습니다.");
+        }
+        else {
+            resultMap.put("resultCode", -1);
+            resultMap.put("resultMsg", "해당 인덱스의 사용자 정보 삭제에 실패했습니다.");
+        }
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
     @GetMapping("/room/search/available")
     @ApiOperation(value="예약 가능한 숙소 조회", notes="전체 방 중 conditionStart ~ conditionEnd까지 예약이 가능한 방 목록을 조회한다.")
     public ResponseEntity<Map<String, Object>> searchAvailableRoomList(@RequestParam String conditionStart, @RequestParam String conditionEnd) {
+
         List<Room> availRoomList = roomService.searchAvailableRoomList(conditionStart, conditionEnd);
         Map<String, Object> resultMap = new HashMap<>();
+
+        if(availRoomList.size() == 0) {
+            resultMap.put("resultCode", -1);
+            resultMap.put("resultMsg", "조건에 해당하는 결과를 찾지 못했습니다.");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+
         resultMap.put("data", availRoomList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }

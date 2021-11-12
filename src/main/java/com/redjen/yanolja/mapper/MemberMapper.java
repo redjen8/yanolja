@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface MemberMapper {
 
     Member searchMemberByIdx(int memberIdx);
+
+    int deleteMemberByIdx(int memberIdx);
 }
 

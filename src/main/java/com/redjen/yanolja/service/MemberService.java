@@ -6,4 +6,6 @@ import com.redjen.yanolja.model.Member;
 public interface MemberService {
 
     Member searchMemberByIdx(int memberIdx);
+
+    int deleteMemberByIdx(int memberIdx);
 }
