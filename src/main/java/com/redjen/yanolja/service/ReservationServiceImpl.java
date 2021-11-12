@@ -13,7 +13,12 @@ public class ReservationServiceImpl implements ReservationService {
     ReservationServiceImpl (ReservationMapper reservationMapper) { this.reservationMapper=reservationMapper; }
 
     @Override
-    public int makeReservation(int memberIdx, int couponIdx, int companyIdx, int roomIdx, boolean reserveType, String reserveStart, String reserveEnd) {
-        return reservationMapper.makeReservation(memberIdx, couponIdx, companyIdx, roomIdx, reserveType, reserveStart, reserveEnd);
+    public int makeReservationWithCoupon(int memberIdx, int couponIdx, int companyIdx, int roomIdx, boolean reserveType, String reserveStart, String reserveEnd) {
+        return reservationMapper.makeReservationWithCoupon(memberIdx, couponIdx, companyIdx, roomIdx, reserveType, reserveStart, reserveEnd);
+    }
+
+    @Override
+    public int makeReservation(int memberIdx, int companyIdx, int roomIdx, boolean reserveType, String reserveStart, String reserveEnd) {
+        return reservationMapper.makeReservation(memberIdx, companyIdx, roomIdx, reserveType, reserveStart, reserveEnd);
     }
 }

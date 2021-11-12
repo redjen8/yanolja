@@ -7,5 +7,5 @@ public interface MemberService {
 
     Member searchMemberByIdx(int memberIdx);
 
-    int deleteMemberByIdx(int memberIdx);
+    int quitMemberByIdx(int memberIdx);
 }

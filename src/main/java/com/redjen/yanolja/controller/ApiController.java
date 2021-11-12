@@ -52,11 +52,11 @@ public class ApiController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @DeleteMapping("/member/delete/{idx}")
+    @PatchMapping("/member/quit/{idx}")
     @ApiOperation(value="사용자 탈퇴", notes="해당 인덱스의 사용자를 탈퇴 처리한다.")
-    public ResponseEntity<Map<String, Object>> deleteMemberByIdx(@PathVariable int idx) {
+    public ResponseEntity<Map<String, Object>> quitMemberByIdx(@PathVariable int idx) {
 
-        int res = memberService.deleteMemberByIdx(idx);
+        int res = memberService.quitMemberByIdx(idx);
         Map<String, Object> resultMap = new HashMap<>();
 
         if(res == 1) {
@@ -99,17 +99,48 @@ public class ApiController {
     @PostMapping("/reserve/make")
     @ApiOperation(value="방 예약", notes="방 예약 정보를 기록한다.")
     public ResponseEntity<Map<String, Object>> makeReservation(@RequestBody HashMap<String, String> paramMap) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        if(paramMap.isEmpty() || !paramMap.containsKey("memberIdx") || !paramMap.containsKey("companyIdx") || !paramMap.containsKey("roomIdx")
+                || !paramMap.containsKey("reserveType") || !paramMap.containsKey("reserveStart") || !paramMap.containsKey("reserveEnd")) {
+            resultMap.put("resultCode", -1);
+            resultMap.put("resultMsg", "유효하지 않은 매개변수입니다.");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+
         int memberIdx = Integer.parseInt(paramMap.get("memberIdx"));
-        int couponIdx = Integer.parseInt(paramMap.get("couponIdx"));
+        int couponIdx;
+
+        if(!paramMap.containsKey("couponIdx")) {
+            couponIdx = 0;
+        }
+        else {
+            couponIdx = Integer.parseInt(paramMap.get("couponIdx"));
+        }
+
         int companyIdx = Integer.parseInt(paramMap.get("companyIdx"));
         int roomIdx = Integer.parseInt(paramMap.get("roomIdx"));
         boolean reserveType = paramMap.get("reserveType").equals("1");
         String reserveStart = paramMap.get("reserveStart");
         String reserveEnd = paramMap.get("reserveEnd");
-        int result = reservationService.makeReservation(memberIdx, couponIdx, companyIdx,roomIdx,reserveType,reserveStart,reserveEnd);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("resultCode", result);
-        resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
+
+        int result;
+
+        if (couponIdx == 0) {
+            result = reservationService.makeReservation(memberIdx, companyIdx, roomIdx, reserveType, reserveStart, reserveEnd);
+        }
+        else {
+            result = reservationService.makeReservationWithCoupon(memberIdx, couponIdx, companyIdx,roomIdx,reserveType,reserveStart,reserveEnd);
+        }
+
+        if(result == 1) {
+            resultMap.put("resultCode", 0);
+            resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
+        }
+        else {
+            resultMap.put("resultCode", -1);
+            resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
+        }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.redjen.yanolja.mapper.ReservationMapper">
-    <insert id="makeReservation" useGeneratedKeys="true">
+    <insert id="makeReservationWithCoupon" useGeneratedKeys="true">
         INSERT INTO reservation
         (memberIdx, couponIdx, companyIdx, roomIdx, price, reserveType, reserveStart, reserveEnd)
         VALUES (
@@ -21,5 +21,22 @@
                   #{reserveStart},
                   #{reserveEnd}
                 )
+    </insert>
+
+    <insert id="makeReservation" useGeneratedKeys="true">
+        INSERT INTO reservation
+        (memberIdx, couponIdx, companyIdx, roomIdx, price, reserveType, reserveStart, reserveEnd)
+        VALUES
+        (
+            #{memberIdx},
+            null,
+            #{companyIdx},
+            #{roomIdx},
+            (SELECT IF(#{reserveType} = 1, roomprice.dayPrice, roomprice.timePrice)
+                FROM roomprice WHERE roomprice.roomIdx = #{roomIdx}),
+            #{reserveType},
+            #{reserveStart},
+            #{reserveEnd}
+        )
     </insert>
 </mapper>

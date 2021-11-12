@@ -20,8 +20,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public int deleteMemberByIdx(int memberIdx) {
-        return memberMapper.deleteMemberByIdx(memberIdx);
+    public int quitMemberByIdx(int memberIdx) {
+        return memberMapper.quitMemberByIdx(memberIdx);
     }
 
 }

@@ -7,7 +7,7 @@
         SELECT * FROM member WHERE memberIdx = #{memberIdx}
     </select>
 
-    <delete id="deleteMemberByIdx">
+    <delete id="quitMemberByIdx">
         UPDATE member SET member.memberStatus = 'inactive' WHERE memberIdx = #{memberIdx}
     </delete>
 </mapper>
