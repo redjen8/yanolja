@@ -7,5 +7,9 @@ public interface MemberService {
 
     Member searchMemberByIdx(int memberIdx);
 
+    Member searchMemberByEmail(String email);
+
+    int signupMember(String email, String password);
+
     int quitMemberByIdx(int memberIdx);
 }

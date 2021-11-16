@@ -20,6 +20,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public Member searchMemberByEmail(String email) {
+        return memberMapper.searchMemberByEmail(email);
+    }
+
+    @Override
+    public int signupMember(String email, String password) {
+        return memberMapper.signupMember(email, password);
+    }
+
+    @Override
     public int quitMemberByIdx(int memberIdx) {
         return memberMapper.quitMemberByIdx(memberIdx);
     }
