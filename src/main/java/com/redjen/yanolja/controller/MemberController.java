@@ -2,6 +2,7 @@ package com.redjen.yanolja.controller;
 
 import com.redjen.yanolja.model.*;
 import com.redjen.yanolja.security.AES128;
+import com.redjen.yanolja.security.JwtService;
 import com.redjen.yanolja.security.Secret;
 import com.redjen.yanolja.service.*;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private JwtService jwtService;
 
     @GetMapping("/get/{idx}")
     @ApiOperation(value="사용자 정보 조회", notes="해당 인덱스의 사용자 정보를 조회한다.")
@@ -97,10 +101,40 @@ public class MemberController {
         }
     }
 
-
+    @ResponseBody
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> loginMember(@RequestBody LoginVO loginVO) {
-        String password;
-        return new ResponseEntity<>(HttpStatus.OK);
+        Map<String, Object> resultMap = new HashMap<>();
+
+        Member existMember = memberService.searchMemberByEmail(loginVO.getEmail());
+
+        String decodedPassword;
+        try {
+            decodedPassword = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(existMember.getPassword());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("resultCode", 3);
+            resultMap.put("resultMsg", "비밀번호 복호화 도중 에러가 발생했습니다.");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+
+        if (loginVO.getPassword().equals(decodedPassword)) {
+            resultMap.put("resultCode", 0);
+            resultMap.put("resultMsg", "로그인 성공");
+
+            int memberIdx = existMember.getMemberIdx();
+
+            resultMap.put("memberIdx", memberIdx);
+
+            String jwt = jwtService.createJwt(memberIdx);
+            resultMap.put("jwtKey", jwt);
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+        else {
+            resultMap.put("resultCode", 1);
+            resultMap.put("resultMsg", "로그인 실패");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
     }
 }
