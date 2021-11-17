@@ -27,7 +27,7 @@ public class Member {
 
     @Min(0)
     private int point;
-    private String nickname;
+    private String memberNick;
     private String memberStatus;
     private String memberImageUrl;
     private String createdAt;

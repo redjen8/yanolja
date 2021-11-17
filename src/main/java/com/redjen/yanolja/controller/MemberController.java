@@ -1,5 +1,6 @@
 package com.redjen.yanolja.controller;
 
+import com.redjen.yanolja.configuration.BaseException;
 import com.redjen.yanolja.model.*;
 import com.redjen.yanolja.security.AES128;
 import com.redjen.yanolja.security.JwtService;
@@ -134,6 +135,47 @@ public class MemberController {
         else {
             resultMap.put("resultCode", 1);
             resultMap.put("resultMsg", "로그인 실패");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+    }
+
+    @ResponseBody
+    @PatchMapping("/update/{memberIdx}")
+    public ResponseEntity<Map<String, Object>> updateMember (@PathVariable int memberIdx, @RequestBody Member member) {
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            int memberIdxByJwt = jwtService.getUserIdx();
+            if (memberIdxByJwt != memberIdx) {
+                resultMap.put("resultCode", 4);
+                resultMap.put("resultMsg", "jwt 인증 오류");
+                return new ResponseEntity<>(resultMap, HttpStatus.OK);
+            }
+        }
+        catch (BaseException exception) {
+            resultMap.put("resultCode", 3);
+            resultMap.put("resultMsg", "jwt 검증 오류");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+        int res;
+
+        member.setMemberIdx(memberIdx);
+        try {
+            res = memberService.updateMember(member);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("resultCode", 2);
+            resultMap.put("resultMsg", "사용자 정보를 불러오는 도중 에러가 발생했습니다.");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+        if(res == 1) {
+            resultMap.put("resultCode", 0);
+            resultMap.put("resultMsg", "사용자 정보 업데이트 성공");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+        else {
+            resultMap.put("resultCode", 1);
+            resultMap.put("resultMsg", "사용자 정보 업데이트 실패");
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
     }

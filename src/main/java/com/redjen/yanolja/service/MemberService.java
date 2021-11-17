@@ -11,5 +11,7 @@ public interface MemberService {
 
     int signupMember(String email, String password);
 
+    int updateMember(Member member);
+
     int quitMemberByIdx(int memberIdx);
 }

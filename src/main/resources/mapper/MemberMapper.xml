@@ -19,4 +19,20 @@
     <delete id="quitMemberByIdx">
         UPDATE member SET member.memberStatus = 'inactive' WHERE memberIdx = #{memberIdx}
     </delete>
+
+    <update id="updateMember" parameterType="com.redjen.yanolja.model.Member">
+        UPDATE member
+        SET
+        <if test="phoneNumber != null">
+            phoneNumber = #{phoneNumber},
+        </if>
+        <if test="memberImageUrl != null">
+            memberImageUrl = #{memberImageUrl},
+        </if>
+        <if test="memberNick != null">
+            memberNick = #{memberNick},
+        </if>
+            memberStatus = 'active'
+        WHERE member.memberIdx = #{memberIdx}
+    </update>
 </mapper>

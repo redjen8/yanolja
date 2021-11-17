@@ -30,6 +30,11 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public int updateMember(Member member) {
+        return memberMapper.updateMember(member);
+    }
+
+    @Override
     public int quitMemberByIdx(int memberIdx) {
         return memberMapper.quitMemberByIdx(memberIdx);
     }
