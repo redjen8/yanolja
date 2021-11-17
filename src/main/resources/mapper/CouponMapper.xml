@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.redjen.yanolja.mapper.CouponMapper">
+
+    <insert id="registerNewCoupon" parameterType="com.redjen.yanolja.model.Coupon">
+        INSERT INTO coupon (couponName, description, maxDiscount, discountRate, discountPrice, startTime, endTime, couponImageUrl)
+        VALUES
+        (
+            #{couponName},
+            #{description},
+            #{maxDiscount},
+            #{discountRate},
+            #{discountPrice},
+            #{startTime},
+            #{endTime},
+            #{couponImageUrl}
+        )
+    </insert>
+
+    <select id="selectCouponByCouponIdx" resultType="com.redjen.yanolja.model.Coupon">
+        SELECT * FROM coupon WHERE couponIdx = #{couponIdx}
+    </select>
+</mapper>

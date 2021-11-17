@@ -63,6 +63,7 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping(value = "/signup")
+    @ApiOperation(value="회원가입", notes="신규 사용자가 회원 가입한다.")
     public ResponseEntity<Map<String, Object>> signupMember(@RequestBody LoginVO loginVO) {
         Map<String, Object> resultMap = new HashMap<>();
 
@@ -104,6 +105,7 @@ public class MemberController {
 
     @ResponseBody
     @PostMapping("/login")
+    @ApiOperation(value="로그인", notes="기존 사용자가 로그인해 jwt 값을 얻는다.")
     public ResponseEntity<Map<String, Object>> loginMember(@RequestBody LoginVO loginVO) {
         Map<String, Object> resultMap = new HashMap<>();
 
@@ -141,6 +143,7 @@ public class MemberController {
 
     @ResponseBody
     @PatchMapping("/update/{memberIdx}")
+    @ApiOperation(value="사용자 정보 업데이트", notes="해당 인덱스의 사용자의 정보를 업데이트한다.")
     public ResponseEntity<Map<String, Object>> updateMember (@PathVariable int memberIdx, @RequestBody Member member) {
         Map<String, Object> resultMap = new HashMap<>();
         try {
