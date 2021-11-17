@@ -14,5 +14,9 @@ public interface CouponMapper {
     int registerNewCoupon (Coupon coupon);
 
     Coupon selectCouponByCouponIdx (int couponIdx);
+
+    List<Coupon> selectAvailableCouponList(int roomIdx);
+
+    int registerCouponAvailable(int roomIdx, int couponIdx);
 }
 

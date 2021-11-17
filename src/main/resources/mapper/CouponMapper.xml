@@ -22,4 +22,19 @@
     <select id="selectCouponByCouponIdx" resultType="com.redjen.yanolja.model.Coupon">
         SELECT * FROM coupon WHERE couponIdx = #{couponIdx}
     </select>
+
+    <select id="selectAvailableCouponList" resultType="com.redjen.yanolja.model.Coupon">
+        <![CDATA[
+        SELECT * FROM coupon
+        INNER JOIN couponavaillist c ON coupon.couponIdx = c.couponIdx
+        WHERE startTime < now()
+        AND now() < endTime
+        AND c.roomIdx = #{roomIdx};
+        ]]>
+    </select>
+
+    <insert id="registerCouponAvailable">
+        INSERT IGNORE INTO couponavaillist (roomIdx, couponIdx)
+        VALUES (#{roomIdx}, #{couponIdx})
+    </insert>
 </mapper>
