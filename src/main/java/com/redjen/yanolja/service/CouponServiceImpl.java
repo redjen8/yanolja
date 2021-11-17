@@ -20,7 +20,7 @@ public class CouponServiceImpl implements CouponService{
     }
 
     @Override
-    public int selectCouponByCouponIdx(int couponIdx) {
+    public Coupon selectCouponByCouponIdx(int couponIdx) {
         return couponMapper.selectCouponByCouponIdx(couponIdx);
     }
 }

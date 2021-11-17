@@ -13,6 +13,6 @@ public interface CouponMapper {
 
     int registerNewCoupon (Coupon coupon);
 
-    int selectCouponByCouponIdx (int couponIdx);
+    Coupon selectCouponByCouponIdx (int couponIdx);
 }
 

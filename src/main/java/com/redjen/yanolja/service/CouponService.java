@@ -5,5 +5,5 @@ import com.redjen.yanolja.model.Coupon;
 public interface CouponService {
     int registerNewCoupon (Coupon coupon);
 
-    int selectCouponByCouponIdx (int couponIdx);
+    Coupon selectCouponByCouponIdx (int couponIdx);
 }
