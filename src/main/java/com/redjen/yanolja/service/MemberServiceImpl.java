@@ -39,4 +39,19 @@ public class MemberServiceImpl implements MemberService{
         return memberMapper.quitMemberByIdx(memberIdx);
     }
 
+    @Override
+    public int makeLikeToCompany(int memberIdx, int companyIdx) {
+        return memberMapper.makeLikeToCompany(memberIdx, companyIdx);
+    }
+
+    @Override
+    public int cancelLikeToCompany(int memberIdx, int companyIdx) {
+        return memberMapper.cancelLikeToCompany(memberIdx, companyIdx);
+    }
+
+    @Override
+    public int checkAlreadyLikedCompany(int memberIdx, int companyIdx) {
+        return memberMapper.checkAlreadyLikedCompany(memberIdx, companyIdx);
+    }
+
 }

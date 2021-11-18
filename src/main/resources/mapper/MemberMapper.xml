@@ -35,4 +35,21 @@
             memberStatus = 'active'
         WHERE member.memberIdx = #{memberIdx}
     </update>
+
+    <insert id="makeLikeToCompany">
+        INSERT INTO likelist (companyIdx, memberIdx)
+        VALUES (#{companyIdx}, #{memberIdx})
+    </insert>
+
+    <delete id="cancelLikeToCompany">
+        DELETE FROM likelist WHERE companyIdx = #{companyIdx} AND memberIdx = #{memberIdx}
+    </delete>
+
+    <select id="checkAlreadyLikedCompany" resultType="int">
+        SELECT EXISTS
+            (
+            SELECT * FROM likelist
+            WHERE companyIdx = #{companyIdx} AND memberIdx = #{memberIdx} limit 1
+            )
+    </select>
 </mapper>

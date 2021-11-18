@@ -17,5 +17,11 @@ public interface MemberMapper {
     int updateMember(Member member);
 
     int quitMemberByIdx(int memberIdx);
+
+    int makeLikeToCompany(int memberIdx, int companyIdx);
+
+    int cancelLikeToCompany(int memberIdx, int companyIdx);
+
+    int checkAlreadyLikedCompany(int memberIdx, int companyIdx);
 }
 

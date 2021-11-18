@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -132,13 +133,12 @@ public class MemberController {
 
             String jwt = jwtService.createJwt(memberIdx);
             resultMap.put("jwtKey", jwt);
-            return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
         else {
             resultMap.put("resultCode", 1);
             resultMap.put("resultMsg", "로그인 실패");
-            return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @ResponseBody
@@ -181,5 +181,59 @@ public class MemberController {
             resultMap.put("resultMsg", "사용자 정보 업데이트 실패");
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
+    }
+
+    @Transactional
+    @ResponseBody
+    @PostMapping("/like/company/{companyIdx}")
+    @ApiOperation(value="사용자 숙소 좋아요 요청", notes="사용자 별 숙소 좋아요 요청 처리, 동일한 요청 재전송 시 좋아요 취소")
+    public ResponseEntity<Map<String, Object>> makeLikeToCompany(@PathVariable int companyIdx, @RequestParam int memberIdx) {
+        Map<String, Object> resultMap = new HashMap<>();
+        try {
+            int memberIdxByJwt = jwtService.getUserIdx();
+            if (memberIdxByJwt != memberIdx) {
+                resultMap.put("resultCode", 4);
+                resultMap.put("resultMsg", "jwt 인증 오류");
+                return new ResponseEntity<>(resultMap, HttpStatus.OK);
+            }
+        }
+        catch (BaseException exception) {
+            resultMap.put("resultCode", 3);
+            resultMap.put("resultMsg", "jwt 검증 오류");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+
+        try {
+            int checkAlreadyLikedCompany = memberService.checkAlreadyLikedCompany(memberIdx, companyIdx);
+            if(checkAlreadyLikedCompany == 1) {  // 이미 클릭했던 경우
+                int cancelRes = memberService.cancelLikeToCompany(memberIdx, companyIdx);
+                if (cancelRes == 1) {
+                    resultMap.put("resultCode", 0);
+                    resultMap.put("resultMsg", "좋아요 취소 완료");
+                }
+                else {
+                    resultMap.put("resultCode", 5);
+                    resultMap.put("resultMsg", "좋아요 취소 실패");
+                }
+            }
+            else {
+                int makeRes = memberService.makeLikeToCompany(memberIdx, companyIdx);
+                if (makeRes == 1) {
+                    resultMap.put("resultCode", 0);
+                    resultMap.put("resultMsg", "좋아요 등록 완료");
+                }
+                else {
+                    resultMap.put("resultCode", 5);
+                    resultMap.put("resultMsg", "좋아요 등록 실패");
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("resultCode", 2);
+            resultMap.put("resultMsg", "데이터베이스 접근 오류");
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }
