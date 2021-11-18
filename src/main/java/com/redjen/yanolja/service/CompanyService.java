@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface CompanyService {
 
-    List<Company> searchCompanyByReserve(int listSize);
+    List<Company> searchCompanyByReserve(int listSize, int pageNum);
 
-    List<Company> searchCompanyByLikes(int listSize);
+    List<Company> searchCompanyByLikes(int listSize, int pageNum);
 
     List<Company> searchCompanyByLocation(String searchCondition);
 }

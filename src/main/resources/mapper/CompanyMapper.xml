@@ -12,7 +12,7 @@
         GROUP BY c.companyIdx
         HAVING COUNT(companyName) >= 0
         ORDER BY COUNT(companyName) DESC
-        LIMIT #{listSize} OFFSET 0;
+        LIMIT #{listSize} OFFSET #{offset};
     </select>
 
     <select id="searchCompanyByLikes" resultType="com.redjen.yanolja.model.Company">
@@ -23,7 +23,7 @@
         GROUP BY l.companyIdx
         HAVING COUNT(l.companyIdx) > 0
         ORDER BY COUNT(l.companyIdx) DESC
-        LIMIT #{listSize} OFFSET 0;
+        LIMIT #{listSize} OFFSET #{offset};
     </select>
 
     <select id="searchCompanyByLocation" resultType="com.redjen.yanolja.model.Company">

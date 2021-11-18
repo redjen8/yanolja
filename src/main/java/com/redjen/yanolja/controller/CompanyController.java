@@ -26,18 +26,18 @@ public class CompanyController {
 
     @GetMapping("/list/by-reserve")
     @ApiOperation(value="예약 내림차 순 카테고리 별 숙소 조회", notes="예약 수의 내림차순으로 숙소 목록을 조회한다.")
-    public ResponseEntity<Map<String, Object>> searchCompanyByReserve(@RequestParam int listSize) {
+    public ResponseEntity<Map<String, Object>> searchCompanyByReserve(@RequestParam int listSize, @RequestParam int pageNum) {
         Map<String, Object> resultMap = new HashMap<>();
-        List<Company> companyList = companyService.searchCompanyByReserve(listSize);
+        List<Company> companyList = companyService.searchCompanyByReserve(listSize, pageNum);
         resultMap.put("data", companyList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @GetMapping("/list/by-likes")
     @ApiOperation(value="좋아요 내림차 순 카테고리 별 숙소 조회", notes="좋아요 수의 내림차순으로 숙소 목록을 조회한다.")
-    public ResponseEntity<Map<String, Object>> searchCompanyByLikes(@RequestParam int listSize) {
+    public ResponseEntity<Map<String, Object>> searchCompanyByLikes(@RequestParam int listSize, @RequestParam int pageNum) {
         Map<String, Object> resultMap = new HashMap<>();
-        List<Company> companyList = companyService.searchCompanyByLikes(listSize);
+        List<Company> companyList = companyService.searchCompanyByLikes(listSize, pageNum);
         resultMap.put("data", companyList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }

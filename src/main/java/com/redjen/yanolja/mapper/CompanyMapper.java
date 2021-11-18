@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 public interface CompanyMapper {
 
-    List<Company> searchCompanyByReserve(int listSize);
+    List<Company> searchCompanyByReserve(int listSize, int offset);
 
-    List<Company> searchCompanyByLikes(int listSize);
+    List<Company> searchCompanyByLikes(int listSize, int offset);
 
     List<Company> searchCompanyByLocation(String searchCondition);
 }

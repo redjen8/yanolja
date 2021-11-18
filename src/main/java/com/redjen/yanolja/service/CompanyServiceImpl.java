@@ -20,13 +20,13 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public List<Company> searchCompanyByReserve(int listSize) {
-        return companyMapper.searchCompanyByReserve(listSize);
+    public List<Company> searchCompanyByReserve(int listSize, int pageNumber) {
+        return companyMapper.searchCompanyByReserve(listSize, pageNumber * listSize);
     }
 
     @Override
-    public List<Company> searchCompanyByLikes(int listSize) {
-        return companyMapper.searchCompanyByLikes(listSize);
+    public List<Company> searchCompanyByLikes(int listSize, int pageNumber) {
+        return companyMapper.searchCompanyByLikes(listSize, pageNumber * listSize);
     }
 
     @Override
