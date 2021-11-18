@@ -85,7 +85,7 @@ public class CouponController {
 
     @ResponseBody
     @GetMapping("/list")
-    @ApiOperation(value="쿠폰 정보 조회", notes="등록된 쿠폰 정보를 조회한다.")
+    @ApiOperation(value="가용한 쿠폰 리스트 조회", notes="현재 방에 사용 가능한 쿠폰 목록를 조회한다.")
     public ResponseEntity<Map<String, Object>> selectAvailableCouponList (@RequestParam int roomIdx) {
         Map<String, Object> resultMap = new HashMap<>();
 
