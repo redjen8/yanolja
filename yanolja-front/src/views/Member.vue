@@ -1,6 +1,9 @@
 <template>
   <b-container>
-    <b-row class="my-1">
+    <b-row align-v="center" class="my-0">
+      <label>회원가입</label>
+    </b-row>
+    <b-row align-v="center" class="my-1">
       <b-col sm="3">
         <label>E-mail: </label>
       </b-col>
@@ -9,7 +12,7 @@
       </b-col>
     </b-row>
 
-    <b-row class="my-1">
+    <b-row align-v="center" class="my-1">
       <b-col sm="3">
         <label>비밀번호: </label>
       </b-col>
