@@ -10,7 +10,7 @@
             <router-link to="/about">About</router-link>
           </b-col>
           <b-col sm="3">
-            <router-link to="/about">About</router-link>
+            <router-link to="/room">Room</router-link>
           </b-col>
           <b-col sm="2" align="end">
             <router-link to="/member">Member</router-link>

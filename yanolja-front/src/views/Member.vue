@@ -5,26 +5,24 @@
     </b-row>
     <br>
     <b-row align-v="center" class="my-1">
-      <b-col sm="3">
+      <b-col sm="6">
         <label>E-mail: </label>
       </b-col>
-      <b-col sm="5">
+      <b-col sm="6">
         <b-form-input id="signupInputEmail" type="email" placeholder="이메일을 입력해주세요."></b-form-input>
       </b-col>
     </b-row>
 
     <b-row align-v="center" class="my-1">
-      <b-col sm="3">
+      <b-col sm="6">
         <label>비밀번호: </label>
       </b-col>
-      <b-col sm="5">
+      <b-col sm="6">
         <b-form-input id="signupInputPassword" type="password" placeholder="비밀번호를 입력해주세요."></b-form-input>
       </b-col>
     </b-row>
 
-    <b-row class="my-1">
       <b-button id="btnSignupConfirm" sm="3" @click="postUserSignupData()">확인</b-button>
-    </b-row>
   </b-container>
 </template>
 
