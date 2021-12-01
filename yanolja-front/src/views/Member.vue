@@ -8,7 +8,7 @@
         <label>E-mail: </label>
       </b-col>
       <b-col sm="5">
-        <b-form-input id="input-email" type="email" placeholder="이메일을 입력해주세요."></b-form-input>
+        <b-form-input id="signupInputEmail" type="email" placeholder="이메일을 입력해주세요."></b-form-input>
       </b-col>
     </b-row>
 
@@ -17,7 +17,7 @@
         <label>비밀번호: </label>
       </b-col>
       <b-col sm="5">
-        <b-form-input id="input-password" type="password" placeholder="비밀번호를 입력해주세요."></b-form-input>
+        <b-form-input id="signupInputPassword" type="password" placeholder="비밀번호를 입력해주세요."></b-form-input>
       </b-col>
     </b-row>
 
@@ -40,8 +40,8 @@ export default {
   methods: {
     postUserSignupData() {
       let saveData = {};
-      saveData.email = document.getElementById("input-email").value;
-      saveData.password = document.getElementById("input-password").value;
+      saveData.email = document.getElementById("signupInputEmail").value;
+      saveData.password = document.getElementById("signupInputPassword").value;
       console.log(saveData)
       axios
       .post("http://localhost:9000/api/member/signup", JSON.stringify(saveData), {
