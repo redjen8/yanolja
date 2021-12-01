@@ -22,9 +22,9 @@
       </b-col>
     </b-row>
 
-    <b-row>
-      <b-button id="btnLoginConfirm" sm="3" @click="postUserLogin()">확인</b-button>
-    </b-row>
+
+      <b-button id="btnLoginConfirm" @click="postUserLogin()">확인</b-button>
+
 
     <b-row class="my-2" align="start">
         발급된 jwt: <br>{{ jwt }}

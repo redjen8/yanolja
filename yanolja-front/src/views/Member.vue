@@ -1,8 +1,9 @@
 <template>
   <b-container>
     <b-row align-v="center" class="my-0">
-      <label>회원가입</label>
+      <h2>회원가입</h2>
     </b-row>
+    <br>
     <b-row align-v="center" class="my-1">
       <b-col sm="3">
         <label>E-mail: </label>
