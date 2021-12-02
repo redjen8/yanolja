@@ -31,7 +31,7 @@
       <b-button id="btnSelectConditionRoom" @click="getRoomListAvailable()">조회</b-button>
     </div>
     <div v-if="bSearched">
-      <b-table :items="roomSearchResult" :fields="tableFields" :head-variant="tableHeadVariant"></b-table>
+      <b-table :items="roomSearchResult" :fields="tableFields" head-variant="light" striped responsive="sm"></b-table>
     </div>
   </b-container>
 </template>
@@ -59,7 +59,6 @@ export default {
       startTime: '18:00:00',
       endDate: tomorrowDate,
       endTime: '10:00:00',
-      tableHeadVariant: 'light',
       tableFields: ['roomName', 'roomShortInfo', 'roomRemainCnt', 'maxPersonCnt', 'defaultPersonCnt', 'roomDescription', 'roomCategory', 'roomPrice', 'bSookbak', 'bDaesil'],
     }
   },
