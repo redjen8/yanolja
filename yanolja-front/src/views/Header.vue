@@ -1,7 +1,7 @@
 <template>
   <div id="navbar">
     <b-navbar toggleable="lg" class="nav" type="dark" variant="primary" sticky>
-      <b-navbar-brand class="navbar-brand" href="/">Yanolja</b-navbar-brand>
+      <b-navbar-brand class="navbar-brand" to="/">Yanolja</b-navbar-brand>
 
       <b-navbar-toggle target="nav-main-collapse"></b-navbar-toggle>
 
@@ -14,7 +14,7 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ms-auto">
 
-          <b-nav-item-dropdown text="Lang" right>
+          <b-nav-item-dropdown text="Lang">
             <b-dropdown-item href="#">EN</b-dropdown-item>
             <b-dropdown-item href="#">ES</b-dropdown-item>
             <b-dropdown-item href="#">RU</b-dropdown-item>

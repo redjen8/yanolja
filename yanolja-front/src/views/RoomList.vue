@@ -69,12 +69,7 @@ export default {
 
       const params = new URLSearchParams([[ "conditionStart", conditionStart], ["conditionEnd", conditionEnd]])
       axios
-        .get("http://localhost:9000/api/room/search/available", { params
-          // headers: {
-          //   'Content-Type': 'application/json;charset=UTF-8',
-          //   'Access-Control-Allow-Origin': "*",
-          // }
-        })
+        .get("http://localhost:9000/api/room/search/available", { params})
         .then(res => {
           this.roomSearchResult = res.data.data
           this.toggleSearched()
