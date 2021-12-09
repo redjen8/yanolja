@@ -27,7 +27,7 @@
               User
             </template>
             <b-dropdown-item to="/login">Login</b-dropdown-item>
-            <b-dropdown-item to="/memberVO">Sign In</b-dropdown-item>
+            <b-dropdown-item to="/member">Sign In</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
