@@ -1,6 +1,6 @@
 package com.redjen.yanolja.mapper;
 
-import com.redjen.yanolja.model.Room;
+import com.redjen.yanolja.model.vo.RoomVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface RoomMapper {
 
-    List<Room> searchAvailableRoomList(String conditionStart, String conditionEnd);
-    List<Room> searchCouponAvailRoomList(String conditionStart, String conditionEnd, int couponIdx);
+    List<RoomVO> searchAvailableRoomList(String conditionStart, String conditionEnd);
+    List<RoomVO> searchCouponAvailRoomList(String conditionStart, String conditionEnd, int couponIdx);
 }
 

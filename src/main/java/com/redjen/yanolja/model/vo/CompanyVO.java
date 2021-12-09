@@ -1,4 +1,4 @@
-package com.redjen.yanolja.model;
+package com.redjen.yanolja.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Company {
+public class CompanyVO {
 
     private int companyIdx;
 

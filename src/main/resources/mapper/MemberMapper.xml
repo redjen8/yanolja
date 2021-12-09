@@ -3,11 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.redjen.yanolja.mapper.MemberMapper">
-    <select id="searchMemberByIdx" resultType="com.redjen.yanolja.model.Member">
+    <select id="searchMemberByIdx" resultType="com.redjen.yanolja.model.vo.MemberVO">
         SELECT * FROM member WHERE memberIdx = #{memberIdx}
     </select>
 
-    <select id="searchMemberByEmail" resultType="com.redjen.yanolja.model.Member">
+    <select id="searchMemberByEmail" resultType="com.redjen.yanolja.model.vo.MemberVO">
         SELECT * FROM member WHERE email = #{email}
     </select>
 
@@ -20,7 +20,7 @@
         UPDATE member SET member.memberStatus = 'inactive' WHERE memberIdx = #{memberIdx}
     </delete>
 
-    <update id="updateMember" parameterType="com.redjen.yanolja.model.Member">
+    <update id="updateMember" parameterType="com.redjen.yanolja.model.vo.MemberVO">
         UPDATE member
         SET
         <if test="phoneNumber != null">
@@ -49,7 +49,7 @@
         SELECT EXISTS
             (
             SELECT * FROM likelist
-            WHERE companyIdx = #{companyIdx} AND memberIdx = #{memberIdx} limit 1
+            WHERE companyIdx = #{companyIdx} AND memberIdx = #{memberIdx}
             )
     </select>
 </mapper>

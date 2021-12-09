@@ -1,7 +1,7 @@
 package com.redjen.yanolja.service;
 
 import com.redjen.yanolja.mapper.CouponMapper;
-import com.redjen.yanolja.model.Coupon;
+import com.redjen.yanolja.model.vo.CouponVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +17,17 @@ public class CouponServiceImpl implements CouponService{
     }
 
     @Override
-    public int registerNewCoupon(Coupon coupon) {
-        return couponMapper.registerNewCoupon(coupon);
+    public int registerNewCoupon(CouponVO couponVO) {
+        return couponMapper.registerNewCoupon(couponVO);
     }
 
     @Override
-    public Coupon selectCouponByCouponIdx(int couponIdx) {
+    public CouponVO selectCouponByCouponIdx(int couponIdx) {
         return couponMapper.selectCouponByCouponIdx(couponIdx);
     }
 
     @Override
-    public List<Coupon> selectAvailableCouponList(int roomIdx) {
+    public List<CouponVO> selectAvailableCouponList(int roomIdx) {
         return couponMapper.selectAvailableCouponList(roomIdx);
     }
 

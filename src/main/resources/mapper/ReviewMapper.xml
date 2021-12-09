@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.redjen.yanolja.mapper.ReviewMapper">
-    <resultMap type="com.redjen.yanolja.model.Review" id="reviewMap">
+    <resultMap type="com.redjen.yanolja.model.vo.ReviewVO" id="reviewMap">
         <id property="reviewIdx" column="reviewIdx"/>
         <id property="memberIdx" column="memberIdx"/>
         <id property="companyIdx" column="companyIdx"/>
@@ -13,10 +13,10 @@
         <id property="reviewDescription" column="reviewDescription"/>
         <id property="reviewReply" column="reviewReply"/>
         <id property="createdAt" column="createdAt"/>
-        <association property="member" javaType="com.redjen.yanolja.model.Member">
+        <association property="memberVO" javaType="com.redjen.yanolja.model.vo.MemberVO">
             <result property="memberNick" column="memberNick"/>
         </association>
-        <association property="room" javaType="com.redjen.yanolja.model.Room">
+        <association property="room" javaType="com.redjen.yanolja.model.vo.RoomVO">
             <result property="roomName" column="roomName"/>
             <result property="roomCategory" column="roomCategory"/>
         </association>

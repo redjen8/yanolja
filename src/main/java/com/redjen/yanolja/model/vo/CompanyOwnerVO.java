@@ -1,4 +1,4 @@
-package com.redjen.yanolja.model;
+package com.redjen.yanolja.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.Email;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CompanyOwner {
+public class CompanyOwnerVO {
 
     private int companyIdx;
     private String ownerName;

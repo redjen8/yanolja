@@ -1,7 +1,6 @@
 package com.redjen.yanolja.mapper;
 
-import com.redjen.yanolja.model.Company;
-import com.redjen.yanolja.model.CompanyOwner;
+import com.redjen.yanolja.model.vo.CompanyOwnerVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +10,6 @@ import java.util.List;
 @Mapper
 public interface CompanyOwnerMapper {
 
-    List<CompanyOwner> searchCompanyOwner(int companyIdx);
+    List<CompanyOwnerVO> searchCompanyOwner(int companyIdx);
 }
 

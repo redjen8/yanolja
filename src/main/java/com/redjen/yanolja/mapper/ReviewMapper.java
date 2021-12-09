@@ -1,6 +1,6 @@
 package com.redjen.yanolja.mapper;
 
-import com.redjen.yanolja.model.Review;
+import com.redjen.yanolja.model.vo.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ public interface ReviewMapper {
 
     int insertReplyToReview(int reviewIdx, String reviewReply);
 
-    List<Review> searchReviewList(int companyIdx);
+    List<ReviewVO> searchReviewList(int companyIdx);
 }
 

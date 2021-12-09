@@ -4,7 +4,7 @@
 
 <mapper namespace="com.redjen.yanolja.mapper.CompanyMapper">
 
-    <select id="searchCompanyByReserve" resultType="com.redjen.yanolja.model.Company">
+    <select id="searchCompanyByReserve" resultType="com.redjen.yanolja.model.vo.CompanyVO">
         SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl
         FROM company
                  INNER JOIN reservation r on company.companyIdx = r.companyIdx
@@ -15,7 +15,7 @@
         LIMIT #{listSize} OFFSET #{offset};
     </select>
 
-    <select id="searchCompanyByLikes" resultType="com.redjen.yanolja.model.Company">
+    <select id="searchCompanyByLikes" resultType="com.redjen.yanolja.model.vo.CompanyVO">
         SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl
         FROM company
                  INNER JOIN companyimagelist c on company.companyIdx = c.companyIdx
@@ -26,7 +26,7 @@
         LIMIT #{listSize} OFFSET #{offset};
     </select>
 
-    <select id="searchCompanyByLocation" resultType="com.redjen.yanolja.model.Company">
+    <select id="searchCompanyByLocation" resultType="com.redjen.yanolja.model.vo.CompanyVO">
         SELECT companyName, companyRating, companyReviewCnt, availTimeStart, minPrice, category, companyImageUrl
         FROM company
                  INNER JOIN location l on company.locationIdx = l.locationIdx

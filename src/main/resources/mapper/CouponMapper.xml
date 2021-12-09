@@ -4,7 +4,7 @@
 
 <mapper namespace="com.redjen.yanolja.mapper.CouponMapper">
 
-    <insert id="registerNewCoupon" parameterType="com.redjen.yanolja.model.Coupon">
+    <insert id="registerNewCoupon" parameterType="com.redjen.yanolja.model.vo.CouponVO">
         INSERT INTO coupon (couponName, description, maxDiscount, discountRate, discountPrice, startTime, endTime, couponImageUrl)
         VALUES
         (
@@ -19,11 +19,11 @@
         )
     </insert>
 
-    <select id="selectCouponByCouponIdx" resultType="com.redjen.yanolja.model.Coupon">
+    <select id="selectCouponByCouponIdx" resultType="com.redjen.yanolja.model.vo.CouponVO">
         SELECT * FROM coupon WHERE couponIdx = #{couponIdx}
     </select>
 
-    <select id="selectAvailableCouponList" resultType="com.redjen.yanolja.model.Coupon">
+    <select id="selectAvailableCouponList" resultType="com.redjen.yanolja.model.vo.CouponVO">
         <![CDATA[
         SELECT * FROM coupon
         INNER JOIN couponavaillist c ON coupon.couponIdx = c.couponIdx

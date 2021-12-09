@@ -43,7 +43,7 @@ export default {
       saveData.password = document.getElementById("signupInputPassword").value;
       console.log(saveData)
       axios
-      .post("http://localhost:9000/api/member/signup", JSON.stringify(saveData), {
+      .post("http://localhost:9000/api/memberVO/signup", JSON.stringify(saveData), {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': "*",

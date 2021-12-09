@@ -1,4 +1,4 @@
-package com.redjen.yanolja.model;
+package com.redjen.yanolja.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Member {
+public class MemberVO {
     private int memberIdx;
     private int cartItemIdx;
 

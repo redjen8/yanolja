@@ -1,4 +1,4 @@
-package com.redjen.yanolja.model;
+package com.redjen.yanolja.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Coupon {
+public class CouponVO {
     private String couponName;
     private String description;
     private int maxDiscount;

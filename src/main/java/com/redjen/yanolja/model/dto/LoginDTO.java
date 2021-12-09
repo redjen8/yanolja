@@ -1,4 +1,4 @@
-package com.redjen.yanolja.model;
+package com.redjen.yanolja.model.dto;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LoginVO {
+public class LoginDTO {
     String email;
     String password;
 }

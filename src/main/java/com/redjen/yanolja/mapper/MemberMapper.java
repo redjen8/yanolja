@@ -1,6 +1,6 @@
 package com.redjen.yanolja.mapper;
 
-import com.redjen.yanolja.model.Member;
+import com.redjen.yanolja.model.vo.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface MemberMapper {
 
-    Member searchMemberByIdx(int memberIdx);
+    MemberVO searchMemberByIdx(int memberIdx);
 
-    Member searchMemberByEmail(String email);
+    MemberVO searchMemberByEmail(String email);
 
     int signupMember(String email, String password);
 
-    int updateMember(Member member);
+    int updateMember(MemberVO memberVO);
 
     int quitMemberByIdx(int memberIdx);
 

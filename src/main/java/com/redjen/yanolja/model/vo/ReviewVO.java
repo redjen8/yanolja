@@ -1,4 +1,4 @@
-package com.redjen.yanolja.model;
+package com.redjen.yanolja.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Review {
+public class ReviewVO {
 
     private int reviewIdx;
     private int memberIdx;
@@ -21,6 +21,6 @@ public class Review {
     private String reviewReply;
     private String createdAt;
 
-    private Room room;
-    private Member member;
+    private RoomVO roomVO;
+    private MemberVO memberVO;
 }

@@ -1,17 +1,16 @@
 package com.redjen.yanolja.service;
 
-import com.redjen.yanolja.mapper.MemberMapper;
-import com.redjen.yanolja.model.Member;
+import com.redjen.yanolja.model.vo.MemberVO;
 
 public interface MemberService {
 
-    Member searchMemberByIdx(int memberIdx);
+    MemberVO searchMemberByIdx(int memberIdx);
 
-    Member searchMemberByEmail(String email);
+    MemberVO searchMemberByEmail(String email);
 
     int signupMember(String email, String password);
 
-    int updateMember(Member member);
+    int updateMember(MemberVO memberVO);
 
     int quitMemberByIdx(int memberIdx);
 

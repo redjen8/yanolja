@@ -1,9 +1,7 @@
 package com.redjen.yanolja.service;
 
-import com.redjen.yanolja.mapper.MemberMapper;
 import com.redjen.yanolja.mapper.ReviewMapper;
-import com.redjen.yanolja.model.Member;
-import com.redjen.yanolja.model.Review;
+import com.redjen.yanolja.model.vo.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +27,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<Review> searchReviewList(int companyIdx) {
+    public List<ReviewVO> searchReviewList(int companyIdx) {
         return reviewMapper.searchReviewList(companyIdx);
     }
 }

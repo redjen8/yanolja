@@ -1,8 +1,7 @@
 package com.redjen.yanolja.service;
 
 import com.redjen.yanolja.mapper.CompanyOwnerMapper;
-import com.redjen.yanolja.model.CompanyOwner;
-import com.redjen.yanolja.model.Member;
+import com.redjen.yanolja.model.vo.CompanyOwnerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ public class CompanyOwnerServiceImpl implements CompanyOwnerService{
     }
 
     @Override
-    public List<CompanyOwner> searchCompanyOwner(int companyIdx) {
+    public List<CompanyOwnerVO> searchCompanyOwner(int companyIdx) {
         return companyOwnerMapper.searchCompanyOwner(companyIdx);
     }
 }

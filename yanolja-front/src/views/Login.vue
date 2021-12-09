@@ -31,7 +31,7 @@
     </b-row>
 
     <b-row class="my-2">
-      조회된 member 인덱스: {{ memberIndex }}
+      조회된 memberVO 인덱스: {{ memberIndex }}
     </b-row>
   </b-container>
 </template>
@@ -55,7 +55,7 @@ export default {
       saveData.password = document.getElementById("loginInputPassword").value
       console.log(saveData)
       axios
-          .post("http://localhost:9000/api/member/login", JSON.stringify(saveData), {
+          .post("http://localhost:9000/api/memberVO/login", JSON.stringify(saveData), {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8',
               'Access-Control-Allow-Origin': "*",

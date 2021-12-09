@@ -1,7 +1,7 @@
 package com.redjen.yanolja.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.redjen.yanolja.model.Coupon;
+import com.redjen.yanolja.model.vo.CouponVO;
 import com.redjen.yanolja.service.CouponService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +25,10 @@ public class CouponController {
     @ResponseBody
     @PostMapping("/register")
     @ApiOperation(value="새 쿠폰 등록", notes="새 쿠폰을 등록한다.")
-    public ResponseEntity<Map<String, Object>> registerNewCoupon(@RequestBody Coupon coupon) {
+    public ResponseEntity<Map<String, Object>> registerNewCoupon(@RequestBody CouponVO couponVO) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        if (coupon.getCouponName() == null || coupon.getDescription() == null || coupon.getStartTime() == null || coupon.getEndTime() == null) {
+        if (couponVO.getCouponName() == null || couponVO.getDescription() == null || couponVO.getStartTime() == null || couponVO.getEndTime() == null) {
             resultMap.put("resultCode", 1);
             resultMap.put("resultMsg", "유효하지 않은 파라미터입니다.");
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
@@ -36,7 +36,7 @@ public class CouponController {
         int res;
 
         try {
-            res = couponService.registerNewCoupon(coupon);
+            res = couponService.registerNewCoupon(couponVO);
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -63,9 +63,9 @@ public class CouponController {
     public ResponseEntity<Map<String, Object>> selectCouponByCouponIdx (@PathVariable int couponIdx) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        Coupon coupon;
+        CouponVO couponVO;
         try {
-            coupon = couponService.selectCouponByCouponIdx(couponIdx);
+            couponVO = couponService.selectCouponByCouponIdx(couponIdx);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class CouponController {
         }
         ObjectMapper objectMapper = new ObjectMapper();
         @SuppressWarnings("unchecked")
-        Map<String, Object> data = objectMapper.convertValue(coupon, Map.class);
+        Map<String, Object> data = objectMapper.convertValue(couponVO, Map.class);
 
         resultMap.put("resultCode", 0);
         resultMap.put("resultMsg", "쿠폰 정보 불러오기 성공");
@@ -89,7 +89,7 @@ public class CouponController {
     public ResponseEntity<Map<String, Object>> selectAvailableCouponList (@RequestParam int roomIdx) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        List<Coupon> availList;
+        List<CouponVO> availList;
         try {
             availList = couponService.selectAvailableCouponList(roomIdx);
         }

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.redjen.yanolja.mapper.RoomMapper">
-    <resultMap type="com.redjen.yanolja.model.Room" id="roomMap">
+    <resultMap type="com.redjen.yanolja.model.vo.RoomVO" id="roomMap">
         <id property="roomIdx" column="roomIdx"/>
         <id property="companyIdx" column="companyIdx"/>
         <id property="roomName" column="roomName"/>

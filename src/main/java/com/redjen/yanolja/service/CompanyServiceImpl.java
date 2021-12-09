@@ -1,9 +1,7 @@
 package com.redjen.yanolja.service;
 
 import com.redjen.yanolja.mapper.CompanyMapper;
-import com.redjen.yanolja.mapper.MemberMapper;
-import com.redjen.yanolja.model.Company;
-import com.redjen.yanolja.model.Member;
+import com.redjen.yanolja.model.vo.CompanyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +18,17 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public List<Company> searchCompanyByReserve(int listSize, int pageNumber) {
+    public List<CompanyVO> searchCompanyByReserve(int listSize, int pageNumber) {
         return companyMapper.searchCompanyByReserve(listSize, pageNumber * listSize);
     }
 
     @Override
-    public List<Company> searchCompanyByLikes(int listSize, int pageNumber) {
+    public List<CompanyVO> searchCompanyByLikes(int listSize, int pageNumber) {
         return companyMapper.searchCompanyByLikes(listSize, pageNumber * listSize);
     }
 
     @Override
-    public List<Company> searchCompanyByLocation(String searchCondition) {
+    public List<CompanyVO> searchCompanyByLocation(String searchCondition) {
         return companyMapper.searchCompanyByLocation(searchCondition);
     }
 }

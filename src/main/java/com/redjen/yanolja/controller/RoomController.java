@@ -1,6 +1,6 @@
 package com.redjen.yanolja.controller;
 
-import com.redjen.yanolja.model.Room;
+import com.redjen.yanolja.model.vo.RoomVO;
 import com.redjen.yanolja.service.ReservationService;
 import com.redjen.yanolja.service.RoomService;
 import io.swagger.annotations.ApiOperation;
@@ -27,25 +27,25 @@ public class RoomController {
     @ApiOperation(value="예약 가능한 숙소 조회", notes="전체 방 중 conditionStart ~ conditionEnd까지 예약이 가능한 방 목록을 조회한다.")
     public ResponseEntity<Map<String, Object>> searchAvailableRoomList(@RequestParam String conditionStart, @RequestParam String conditionEnd) {
 
-        List<Room> availRoomList = roomService.searchAvailableRoomList(conditionStart, conditionEnd);
+        List<RoomVO> availRoomVOList = roomService.searchAvailableRoomList(conditionStart, conditionEnd);
         Map<String, Object> resultMap = new HashMap<>();
 
-        if(availRoomList.size() == 0) {
+        if(availRoomVOList.size() == 0) {
             resultMap.put("resultCode", -1);
             resultMap.put("resultMsg", "조건에 해당하는 결과를 찾지 못했습니다.");
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
 
-        resultMap.put("data", availRoomList);
+        resultMap.put("data", availRoomVOList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @GetMapping("/room/search/coupon-available")
     @ApiOperation(value="쿠폰 사용 가능하고 예약 가능한 숙소 조회", notes="couponIdx를 가지는 쿠폰을 사용 가능한 방 중 conditionStart ~ conditionEnd까지 예약이 가능한 방 목록을 조회한다.")
     public ResponseEntity<Map<String, Object>> searchCouponAvailableRoomList(@RequestParam String conditionStart, @RequestParam String conditionEnd, @RequestParam int couponIdx) {
-        List<Room> availRoomList = roomService.searchCouponAvailableRoomList(conditionStart, conditionEnd, couponIdx);
+        List<RoomVO> availRoomVOList = roomService.searchCouponAvailableRoomList(conditionStart, conditionEnd, couponIdx);
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("data", availRoomList);
+        resultMap.put("data", availRoomVOList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

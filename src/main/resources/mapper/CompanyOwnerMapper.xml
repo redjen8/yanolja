@@ -4,7 +4,7 @@
 
 <mapper namespace="com.redjen.yanolja.mapper.CompanyOwnerMapper">
 
-    <select id="searchCompanyOwner" resultType="com.redjen.yanolja.model.CompanyOwner">
+    <select id="searchCompanyOwner" resultType="com.redjen.yanolja.model.vo.CompanyOwnerVO">
         SELECT c.companyIdx, ownerName, businessName, ownerAddress, ownerEmail, ownerPhoneNumber, businessNumber
         FROM companyowner
                  INNER JOIN company c on companyowner.companyIdx = c.companyIdx

@@ -1,9 +1,7 @@
 package com.redjen.yanolja.service;
 
-import com.redjen.yanolja.mapper.MemberMapper;
 import com.redjen.yanolja.mapper.RoomMapper;
-import com.redjen.yanolja.model.Member;
-import com.redjen.yanolja.model.Room;
+import com.redjen.yanolja.model.vo.RoomVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +17,12 @@ public class RoomServiceImpl implements RoomService{
     }
 
     @Override
-    public List<Room> searchAvailableRoomList(String conditionStart, String conditionEnd) {
+    public List<RoomVO> searchAvailableRoomList(String conditionStart, String conditionEnd) {
         return roomMapper.searchAvailableRoomList(conditionStart, conditionEnd);
     }
 
     @Override
-    public List<Room> searchCouponAvailableRoomList(String conditionStart, String conditionEnd, int couponIdx) {
+    public List<RoomVO> searchCouponAvailableRoomList(String conditionStart, String conditionEnd, int couponIdx) {
         return roomMapper.searchCouponAvailRoomList(conditionStart, conditionEnd, couponIdx);
     }
 }

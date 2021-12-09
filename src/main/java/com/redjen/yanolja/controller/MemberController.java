@@ -1,7 +1,8 @@
 package com.redjen.yanolja.controller;
 
 import com.redjen.yanolja.configuration.BaseException;
-import com.redjen.yanolja.model.*;
+import com.redjen.yanolja.model.dto.LoginDTO;
+import com.redjen.yanolja.model.vo.MemberVO;
 import com.redjen.yanolja.security.AES128;
 import com.redjen.yanolja.security.JwtService;
 import com.redjen.yanolja.security.Secret;
@@ -30,17 +31,17 @@ public class MemberController {
     @ApiOperation(value="사용자 정보 조회", notes="해당 인덱스의 사용자 정보를 조회한다.")
     public ResponseEntity<Map<String, Object>> getMemberByIdx(@PathVariable int idx) {
 
-        Member member = memberService.searchMemberByIdx(idx);
+        MemberVO memberVO = memberService.searchMemberByIdx(idx);
         Map<String, Object> resultMap = new HashMap<>();
 
-        if(member == null) {
+        if(memberVO == null) {
             resultMap.put("resultCode", -1);
             resultMap.put("resultMsg", "해당 인덱스의 사용자가 존재하지 않습니다.");
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
-        resultMap.put("memberIdx", member.getMemberIdx());
-        resultMap.put("email", member.getEmail());
-        resultMap.put("phoneNumber", member.getPhoneNumber());
+        resultMap.put("memberIdx", memberVO.getMemberIdx());
+        resultMap.put("email", memberVO.getEmail());
+        resultMap.put("phoneNumber", memberVO.getPhoneNumber());
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
@@ -65,24 +66,24 @@ public class MemberController {
     @ResponseBody
     @PostMapping(value = "/signup")
     @ApiOperation(value="회원가입", notes="신규 사용자가 회원 가입한다.")
-    public ResponseEntity<Map<String, Object>> signupMember(@RequestBody LoginVO loginVO) {
+    public ResponseEntity<Map<String, Object>> signupMember(@RequestBody LoginDTO loginDTO) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        if (loginVO.getEmail() == null || loginVO.getPassword() == null) {
+        if (loginDTO.getEmail() == null || loginDTO.getPassword() == null) {
             resultMap.put("resultCode", 1);
             resultMap.put("resultMsg", "유효하지 않은 파라미터입니다.");
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
 
-        Member existMember = memberService.searchMemberByEmail(loginVO.getEmail());
-        if(existMember != null) {
+        MemberVO existMemberVO = memberService.searchMemberByEmail(loginDTO.getEmail());
+        if(existMemberVO != null) {
             resultMap.put("resultCode", 2);
             resultMap.put("resultMsg", "이미 존재하는 이메일입니다.");
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
         String encodedPassword;
         try {
-            encodedPassword = new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(loginVO.getPassword());
+            encodedPassword = new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(loginDTO.getPassword());
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +92,7 @@ public class MemberController {
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
 
-        int res = memberService.signupMember(loginVO.getEmail(), encodedPassword);
+        int res = memberService.signupMember(loginDTO.getEmail(), encodedPassword);
         if (res == 1) {
             resultMap.put("resultCode", 0);
             resultMap.put("resultMsg", "회원가입 성공");
@@ -107,14 +108,14 @@ public class MemberController {
     @ResponseBody
     @PostMapping("/login")
     @ApiOperation(value="로그인", notes="기존 사용자가 로그인해 jwt 값을 얻는다.")
-    public ResponseEntity<Map<String, Object>> loginMember(@RequestBody LoginVO loginVO) {
+    public ResponseEntity<Map<String, Object>> loginMember(@RequestBody LoginDTO loginDTO) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        Member existMember = memberService.searchMemberByEmail(loginVO.getEmail());
+        MemberVO existMemberVO = memberService.searchMemberByEmail(loginDTO.getEmail());
 
         String decodedPassword;
         try {
-            decodedPassword = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(existMember.getPassword());
+            decodedPassword = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(existMemberVO.getPassword());
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -123,11 +124,11 @@ public class MemberController {
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }
 
-        if (loginVO.getPassword().equals(decodedPassword)) {
+        if (loginDTO.getPassword().equals(decodedPassword)) {
             resultMap.put("resultCode", 0);
             resultMap.put("resultMsg", "로그인 성공");
 
-            int memberIdx = existMember.getMemberIdx();
+            int memberIdx = existMemberVO.getMemberIdx();
 
             resultMap.put("memberIdx", memberIdx);
 
@@ -144,7 +145,7 @@ public class MemberController {
     @ResponseBody
     @PatchMapping("/update/{memberIdx}")
     @ApiOperation(value="사용자 정보 업데이트", notes="해당 인덱스의 사용자의 정보를 업데이트한다.")
-    public ResponseEntity<Map<String, Object>> updateMember (@PathVariable int memberIdx, @RequestBody Member member) {
+    public ResponseEntity<Map<String, Object>> updateMember (@PathVariable int memberIdx, @RequestBody MemberVO memberVO) {
         Map<String, Object> resultMap = new HashMap<>();
         try {
             int memberIdxByJwt = jwtService.getUserIdx();
@@ -161,9 +162,9 @@ public class MemberController {
         }
         int res;
 
-        member.setMemberIdx(memberIdx);
+        memberVO.setMemberIdx(memberIdx);
         try {
-            res = memberService.updateMember(member);
+            res = memberService.updateMember(memberVO);
         }
         catch (Exception e) {
             e.printStackTrace();

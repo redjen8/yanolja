@@ -1,6 +1,6 @@
 package com.redjen.yanolja.service;
 
-import com.redjen.yanolja.model.Review;
+import com.redjen.yanolja.model.vo.ReviewVO;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface ReviewService {
 
     int insertReplyToReview(int reviewIdx, String reviewReply);
 
-    List<Review> searchReviewList(int companyIdx);
+    List<ReviewVO> searchReviewList(int companyIdx);
 }

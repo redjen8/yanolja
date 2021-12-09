@@ -1,6 +1,6 @@
 package com.redjen.yanolja.controller;
 
-import com.redjen.yanolja.model.Review;
+import com.redjen.yanolja.model.vo.ReviewVO;
 import com.redjen.yanolja.service.ReviewService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +51,8 @@ public class ReviewController {
     @ApiOperation(value="숙소 리뷰 목록 조회", notes="숙소의 모든 리뷰 목록을 조회한다.")
     public ResponseEntity<Map<String, Object>> searchReviewList(@RequestParam int companyIdx) {
         Map<String, Object> resultMap = new HashMap<>();
-        List<Review> reviewList = reviewService.searchReviewList(companyIdx);
-        resultMap.put("data", reviewList);
+        List<ReviewVO> reviewVOList = reviewService.searchReviewList(companyIdx);
+        resultMap.put("data", reviewVOList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }

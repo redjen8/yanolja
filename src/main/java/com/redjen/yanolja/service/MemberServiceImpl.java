@@ -1,7 +1,7 @@
 package com.redjen.yanolja.service;
 
 import com.redjen.yanolja.mapper.MemberMapper;
-import com.redjen.yanolja.model.Member;
+import com.redjen.yanolja.model.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member searchMemberByIdx(int memberIdx) {
+    public MemberVO searchMemberByIdx(int memberIdx) {
         return memberMapper.searchMemberByIdx(memberIdx);
     }
 
     @Override
-    public Member searchMemberByEmail(String email) {
+    public MemberVO searchMemberByEmail(String email) {
         return memberMapper.searchMemberByEmail(email);
     }
 
@@ -30,8 +30,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public int updateMember(Member member) {
-        return memberMapper.updateMember(member);
+    public int updateMember(MemberVO memberVO) {
+        return memberMapper.updateMember(memberVO);
     }
 
     @Override
