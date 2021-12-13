@@ -8,6 +8,7 @@ import com.redjen.yanolja.security.JwtService;
 import com.redjen.yanolja.security.Secret;
 import com.redjen.yanolja.service.*;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Log4j2
 @RestController
 @RequestMapping("/api/member")
 public class MemberController {
