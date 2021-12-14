@@ -1,6 +1,6 @@
 package com.redjen.yanolja.mapper;
 
-import com.redjen.yanolja.model.vo.CompanyVO;
+import com.redjen.yanolja.model.dto.CompanyQueryResultDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -10,10 +10,10 @@ import java.util.List;
 @Mapper
 public interface CompanyMapper {
 
-    List<CompanyVO> searchCompanyByReserve(int listSize, int offset);
+    List<CompanyQueryResultDTO> searchCompanyByReserve(int listSize, int offset);
 
-    List<CompanyVO> searchCompanyByLikes(int listSize, int offset);
+    List<CompanyQueryResultDTO> searchCompanyByLikes(int listSize, int offset);
 
-    List<CompanyVO> searchCompanyByLocation(String searchCondition);
+    List<CompanyQueryResultDTO> searchCompanyByLocation(String searchCondition);
 }
 

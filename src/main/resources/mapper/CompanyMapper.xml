@@ -4,8 +4,8 @@
 
 <mapper namespace="com.redjen.yanolja.mapper.CompanyMapper">
 
-    <select id="searchCompanyByReserve" resultType="com.redjen.yanolja.model.vo.CompanyVO">
-        SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl
+    <select id="searchCompanyByReserve" resultType="com.redjen.yanolja.model.dto.CompanyQueryResultDTO">
+        SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl, availTimeStart, category
         FROM company
                  INNER JOIN reservation r on company.companyIdx = r.companyIdx
                  INNER JOIN companyimagelist c on company.companyIdx = c.companyIdx
@@ -15,8 +15,8 @@
         LIMIT #{listSize} OFFSET #{offset};
     </select>
 
-    <select id="searchCompanyByLikes" resultType="com.redjen.yanolja.model.vo.CompanyVO">
-        SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl
+    <select id="searchCompanyByLikes" resultType="com.redjen.yanolja.model.dto.CompanyQueryResultDTO">
+        SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl, availTimeStart, category
         FROM company
                  INNER JOIN companyimagelist c on company.companyIdx = c.companyIdx
                  INNER JOIN likelist l on company.companyIdx = l.companyIdx
@@ -26,8 +26,8 @@
         LIMIT #{listSize} OFFSET #{offset};
     </select>
 
-    <select id="searchCompanyByLocation" resultType="com.redjen.yanolja.model.vo.CompanyVO">
-        SELECT companyName, companyRating, companyReviewCnt, availTimeStart, minPrice, category, companyImageUrl
+    <select id="searchCompanyByLocation" resultType="com.redjen.yanolja.model.dto.CompanyQueryResultDTO">
+        SELECT companyName, companyRating, minPrice, companyReviewCnt, companyImageUrl, availTimeStart, category
         FROM company
                  INNER JOIN location l on company.locationIdx = l.locationIdx
                  INNER JOIN companyimagelist c on company.companyIdx = c.companyIdx

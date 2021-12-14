@@ -1,5 +1,6 @@
 package com.redjen.yanolja.controller;
 
+import com.redjen.yanolja.model.dto.CompanyQueryResultDTO;
 import com.redjen.yanolja.model.vo.CompanyVO;
 import com.redjen.yanolja.model.vo.CompanyOwnerVO;
 import com.redjen.yanolja.service.CompanyOwnerService;
@@ -30,7 +31,7 @@ public class CompanyController {
     @ApiOperation(value="예약 내림차 순 카테고리 별 숙소 조회", notes="예약 수의 내림차순으로 숙소 목록을 조회한다.")
     public ResponseEntity<Map<String, Object>> searchCompanyByReserve(@RequestParam int listSize, @RequestParam int pageNum) {
         Map<String, Object> resultMap = new HashMap<>();
-        List<CompanyVO> companyVOList = companyService.searchCompanyByReserve(listSize, pageNum);
+        List<CompanyQueryResultDTO> companyVOList = companyService.searchCompanyByReserve(listSize, pageNum);
         resultMap.put("data", companyVOList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
@@ -39,7 +40,7 @@ public class CompanyController {
     @ApiOperation(value="좋아요 내림차 순 카테고리 별 숙소 조회", notes="좋아요 수의 내림차순으로 숙소 목록을 조회한다.")
     public ResponseEntity<Map<String, Object>> searchCompanyByLikes(@RequestParam int listSize, @RequestParam int pageNum) {
         Map<String, Object> resultMap = new HashMap<>();
-        List<CompanyVO> companyVOList = companyService.searchCompanyByLikes(listSize, pageNum);
+        List<CompanyQueryResultDTO> companyVOList = companyService.searchCompanyByLikes(listSize, pageNum);
         resultMap.put("data", companyVOList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
@@ -48,7 +49,7 @@ public class CompanyController {
     @ApiOperation(value="지역 별 숙소 조회", notes="도/ 시,군,구 정보와 일치하는 숙소 목록을 조회한다.")
     public ResponseEntity<Map<String, Object>> searchCompanyByLocation(@RequestParam String searchCondition) {
         Map<String, Object> resultMap = new HashMap<>();
-        List<CompanyVO> companyVOList = companyService.searchCompanyByLocation(searchCondition);
+        List<CompanyQueryResultDTO> companyVOList = companyService.searchCompanyByLocation(searchCondition);
         resultMap.put("data", companyVOList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }

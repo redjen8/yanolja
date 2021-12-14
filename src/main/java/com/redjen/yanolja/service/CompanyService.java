@@ -1,14 +1,14 @@
 package com.redjen.yanolja.service;
 
-import com.redjen.yanolja.model.vo.CompanyVO;
+import com.redjen.yanolja.model.dto.CompanyQueryResultDTO;
 
 import java.util.List;
 
 public interface CompanyService {
 
-    List<CompanyVO> searchCompanyByReserve(int listSize, int pageNum);
+    List<CompanyQueryResultDTO> searchCompanyByReserve(int listSize, int pageNum);
 
-    List<CompanyVO> searchCompanyByLikes(int listSize, int pageNum);
+    List<CompanyQueryResultDTO> searchCompanyByLikes(int listSize, int pageNum);
 
-    List<CompanyVO> searchCompanyByLocation(String searchCondition);
+    List<CompanyQueryResultDTO> searchCompanyByLocation(String searchCondition);
 }
