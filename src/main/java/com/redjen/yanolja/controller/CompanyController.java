@@ -21,11 +21,14 @@ import java.util.Map;
 @RequestMapping("/api/company")
 public class CompanyController {
 
-    @Autowired
-    private CompanyService companyService;
+    private final CompanyService companyService;
 
-    @Autowired
-    private CompanyOwnerService companyOwnerService;
+    private final CompanyOwnerService companyOwnerService;
+
+    public CompanyController(CompanyService companyService, CompanyOwnerService companyOwnerService) {
+        this.companyService = companyService;
+        this.companyOwnerService = companyOwnerService;
+    }
 
     @GetMapping("/list/by-reserve")
     @ApiOperation(value="예약 내림차 순 카테고리 별 숙소 조회", notes="예약 수의 내림차순으로 숙소 목록을 조회한다.")
