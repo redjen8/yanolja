@@ -29,37 +29,29 @@ public class CompanyController {
 
     @GetMapping("/list/by-reserve")
     @ApiOperation(value="예약 내림차 순 카테고리 별 숙소 조회", notes="예약 수의 내림차순으로 숙소 목록을 조회한다.")
-    public ResponseEntity<Map<String, Object>> searchCompanyByReserve(@RequestParam int listSize, @RequestParam int pageNum) {
-        Map<String, Object> resultMap = new HashMap<>();
-        List<CompanyQueryResultDTO> companyVOList = companyService.searchCompanyByReserve(listSize, pageNum);
-        resultMap.put("data", companyVOList);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    public ResponseEntity<List<CompanyQueryResultDTO>> searchCompanyByReserve(@RequestParam int listSize, @RequestParam int pageNum) {
+        List<CompanyQueryResultDTO> companyListByReserve = companyService.searchCompanyByReserve(listSize, pageNum);
+        return new ResponseEntity<>(companyListByReserve, HttpStatus.OK);
     }
 
     @GetMapping("/list/by-likes")
     @ApiOperation(value="좋아요 내림차 순 카테고리 별 숙소 조회", notes="좋아요 수의 내림차순으로 숙소 목록을 조회한다.")
-    public ResponseEntity<Map<String, Object>> searchCompanyByLikes(@RequestParam int listSize, @RequestParam int pageNum) {
-        Map<String, Object> resultMap = new HashMap<>();
-        List<CompanyQueryResultDTO> companyVOList = companyService.searchCompanyByLikes(listSize, pageNum);
-        resultMap.put("data", companyVOList);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    public ResponseEntity<List<CompanyQueryResultDTO>> searchCompanyByLikes(@RequestParam int listSize, @RequestParam int pageNum) {
+        List<CompanyQueryResultDTO> companyListByLikes = companyService.searchCompanyByLikes(listSize, pageNum);
+        return new ResponseEntity<>(companyListByLikes, HttpStatus.OK);
     }
 
     @GetMapping("/list/by-location")
     @ApiOperation(value="지역 별 숙소 조회", notes="도/ 시,군,구 정보와 일치하는 숙소 목록을 조회한다.")
-    public ResponseEntity<Map<String, Object>> searchCompanyByLocation(@RequestParam String searchCondition) {
-        Map<String, Object> resultMap = new HashMap<>();
-        List<CompanyQueryResultDTO> companyVOList = companyService.searchCompanyByLocation(searchCondition);
-        resultMap.put("data", companyVOList);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    public ResponseEntity<List<CompanyQueryResultDTO>> searchCompanyByLocation(@RequestParam String searchCondition) {
+        List<CompanyQueryResultDTO> companyListByLocation = companyService.searchCompanyByLocation(searchCondition);
+        return new ResponseEntity<>(companyListByLocation, HttpStatus.OK);
     }
 
     @GetMapping("/owner/list")
     @ApiOperation(value="사업자 목록 조회", notes="숙소 사업자 대표의 정보를 조회한다.")
-    public ResponseEntity<Map<String, Object>> searchCompanyOwner(@RequestParam int companyIdx) {
-        Map<String, Object> resultMap = new HashMap<>();
+    public ResponseEntity<List<CompanyOwnerVO>> searchCompanyOwner(@RequestParam int companyIdx) {
         List<CompanyOwnerVO> companyOwnerVOList = companyOwnerService.searchCompanyOwner(companyIdx);
-        resultMap.put("data", companyOwnerVOList);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        return new ResponseEntity<>(companyOwnerVOList, HttpStatus.OK);
     }
 }
