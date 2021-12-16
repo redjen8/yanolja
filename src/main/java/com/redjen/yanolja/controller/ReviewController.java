@@ -1,5 +1,6 @@
 package com.redjen.yanolja.controller;
 
+import com.redjen.yanolja.model.dto.ReviewWriteDTO;
 import com.redjen.yanolja.model.vo.ReviewVO;
 import com.redjen.yanolja.service.ReviewService;
 import io.swagger.annotations.ApiOperation;
@@ -17,23 +18,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class ReviewController {
-
     @Autowired
     private ReviewService reviewService;
 
     @PostMapping("/review/write")
     @ApiOperation(value="후기 작성", notes="실 사용 후 예약에 대한 후기를 작성한다.")
-    public ResponseEntity<Map<String, Object>> writeNewReview(@RequestBody HashMap<String, String> paramMap) {
-        int memberIdx = Integer.parseInt(paramMap.get("memberIdx"));
-        int companyIdx = Integer.parseInt(paramMap.get("companyIdx"));
-        int roomIdx = Integer.parseInt(paramMap.get("roomIdx"));
-        int reserveIdx = Integer.parseInt(paramMap.get("reserveIdx"));
-        float rating = Float.parseFloat(paramMap.get("rating"));
-        String reviewDescription = paramMap.get("reviewDescription");
+    public ResponseEntity<Map<String, Object>> writeNewReview(@RequestBody ReviewWriteDTO newReview) {
         Map<String, Object> resultMap = new HashMap<>();
-        int result = reviewService.insertNewReview(memberIdx, companyIdx, roomIdx, reserveIdx, rating, reviewDescription);
+        int result = reviewService.insertNewReview(newReview);
         resultMap.put("resultCode", result);
-        resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
+        resultMap.put("resultMsg", "후기가 정상적으로 작성되었습니다.");
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
@@ -45,7 +39,7 @@ public class ReviewController {
         Map<String, Object> resultMap = new HashMap<>();
         int result = reviewService.insertReplyToReview(reviewIdx, reviewReply);
         resultMap.put("resultCode", result);
-        resultMap.put("resultMsg", "정상적으로 예약되었습니다.");
+        resultMap.put("resultMsg", "답변이 정상적으로 저장되었습니다.");
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

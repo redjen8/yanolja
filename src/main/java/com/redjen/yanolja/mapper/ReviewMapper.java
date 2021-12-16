@@ -1,5 +1,6 @@
 package com.redjen.yanolja.mapper;
 
+import com.redjen.yanolja.model.dto.ReviewWriteDTO;
 import com.redjen.yanolja.model.vo.ReviewVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface ReviewMapper {
 
-    int insertNewReview(int memberIdx, int companyIdx, int roomIdx, int reserveIdx, float rating, String reviewDescription);
+    int insertNewReview(ReviewWriteDTO reviewWriteDTO);
 
     int insertReplyToReview(int reviewIdx, String reviewReply);
 

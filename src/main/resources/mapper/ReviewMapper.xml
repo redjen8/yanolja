@@ -22,12 +22,12 @@
         </association>
     </resultMap>
 
-    <select id="insertNewReview" resultType="int">
+    <insert id="insertNewReview">
         INSERT INTO review
         (memberIdx, companyIdx, roomIdx, reserveIdx, rating, reviewDescription, reviewReply)
         VALUES
         (#{memberIdx}, #{companyIdx}, #{roomIdx}, #{reserveIdx}, #{rating}, #{reviewDescription}, null);
-    </select>
+    </insert>
 
     <select id="insertReplyToReview" resultType="int">
         UPDATE review

@@ -1,6 +1,7 @@
 package com.redjen.yanolja.service;
 
 import com.redjen.yanolja.mapper.ReviewMapper;
+import com.redjen.yanolja.model.dto.ReviewWriteDTO;
 import com.redjen.yanolja.model.vo.ReviewVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,9 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public int insertNewReview(int memberIdx, int companyIdx, int roomIdx, int reserveIdx, float rating, String reviewDescription) {
-        return reviewMapper.insertNewReview(memberIdx, companyIdx, roomIdx, reserveIdx, rating, reviewDescription);
+    public int insertNewReview(ReviewWriteDTO reviewWriteDTO) {
+        //dto to vo?
+        return reviewMapper.insertNewReview(reviewWriteDTO);
     }
 
     @Override
