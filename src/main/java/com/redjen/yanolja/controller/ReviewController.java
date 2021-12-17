@@ -1,5 +1,6 @@
 package com.redjen.yanolja.controller;
 
+import com.redjen.yanolja.model.dto.ReviewReplyDTO;
 import com.redjen.yanolja.model.dto.ReviewWriteDTO;
 import com.redjen.yanolja.model.vo.ReviewVO;
 import com.redjen.yanolja.service.ReviewService;
@@ -33,11 +34,9 @@ public class ReviewController {
 
     @PostMapping("/review/reply")
     @ApiOperation(value="후기 답변 작성", notes="후기에 대한 답변을 작성한다.")
-    public ResponseEntity<Map<String, Object>> writeReplyToReview(@RequestBody HashMap<String, String> paramMap) {
-        int reviewIdx = Integer.parseInt(paramMap.get("reviewIdx"));
-        String reviewReply = paramMap.get("reviewReply");
+    public ResponseEntity<Map<String, Object>> writeReplyToReview(@RequestBody ReviewReplyDTO reviewReply) {
         Map<String, Object> resultMap = new HashMap<>();
-        int result = reviewService.insertReplyToReview(reviewIdx, reviewReply);
+        int result = reviewService.insertReplyToReview(reviewReply);
         resultMap.put("resultCode", result);
         resultMap.put("resultMsg", "답변이 정상적으로 저장되었습니다.");
         return new ResponseEntity<>(resultMap, HttpStatus.OK);

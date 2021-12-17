@@ -29,11 +29,11 @@
         (#{memberIdx}, #{companyIdx}, #{roomIdx}, #{reserveIdx}, #{rating}, #{reviewDescription}, null);
     </insert>
 
-    <select id="insertReplyToReview" resultType="int">
+    <update id="insertReplyToReview">
         UPDATE review
         SET reviewReply = #{reviewReply}
         WHERE reviewIdx = #{reviewIdx};
-    </select>
+    </update>
 
     <select id="searchReviewList" resultMap="reviewMap">
         SELECT roomName, roomCategory, memberNick, rating, reviewDescription, reviewReply, review.createdDate as createdAt

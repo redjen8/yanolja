@@ -1,5 +1,6 @@
 package com.redjen.yanolja.service;
 
+import com.redjen.yanolja.model.dto.ReviewReplyDTO;
 import com.redjen.yanolja.model.dto.ReviewWriteDTO;
 import com.redjen.yanolja.model.vo.ReviewVO;
 
@@ -9,7 +10,7 @@ public interface ReviewService {
 
     int insertNewReview(ReviewWriteDTO reviewWriteDTO);
 
-    int insertReplyToReview(int reviewIdx, String reviewReply);
+    int insertReplyToReview(ReviewReplyDTO reviewReplyDTO);
 
     List<ReviewVO> searchReviewList(int companyIdx);
 }
