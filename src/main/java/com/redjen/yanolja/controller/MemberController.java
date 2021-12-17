@@ -134,7 +134,7 @@ public class MemberController {
 
             resultMap.put("memberIdx", memberIdx);
 
-            String jwt = jwtService.createJwt(memberIdx);
+            String jwt = jwtService.createJwt(memberIdx, existMemberVO.getSecurityRole());
             resultMap.put("jwtKey", jwt);
         }
         else {

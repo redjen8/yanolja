@@ -16,11 +16,12 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    public String createJwt(int memberIdx) {
+    public String createJwt(int memberIdx, SecurityRole auth) {
         Date now = new Date();
         return Jwts.builder()
                 .setHeaderParam("type", "jwt")
                 .claim("memberIdx", memberIdx)
+                .claim("accessRole", auth)
                 .setIssuedAt(now)
                 .setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)))
                 .signWith(SignatureAlgorithm.HS256, Secret.JWT_SECRET_KEY)

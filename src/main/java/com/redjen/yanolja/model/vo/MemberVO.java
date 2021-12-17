@@ -1,6 +1,7 @@
 package com.redjen.yanolja.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.redjen.yanolja.security.SecurityRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,4 +33,6 @@ public class MemberVO {
     private String memberImageUrl;
     private String createdAt;
     private String activatedAt;
+
+    private SecurityRole securityRole;
 }
