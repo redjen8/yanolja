@@ -21,8 +21,11 @@ import java.util.Map;
 @RequestMapping("/api/coupon")
 public class CouponController {
 
-    @Autowired
-    private CouponService couponService;
+    private final CouponService couponService;
+
+    CouponController(CouponService couponService) {
+        this.couponService = couponService;
+    }
 
     @ResponseBody
     @PostMapping("/register")

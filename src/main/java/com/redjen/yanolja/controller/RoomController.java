@@ -19,11 +19,13 @@ import java.util.Map;
 @RequestMapping("/api")
 public class RoomController {
 
-    @Autowired
-    private RoomService roomService;
+    private final RoomService roomService;
+    private final ReservationService reservationService;
 
-    @Autowired
-    private ReservationService reservationService;
+    RoomController(RoomService roomService, ReservationService reservationService) {
+        this.roomService = roomService;
+        this.reservationService = reservationService;
+    }
 
     @GetMapping("/room/search/available")
     @ApiOperation(value="예약 가능한 숙소 조회", notes="전체 방 중 conditionStart ~ conditionEnd까지 예약이 가능한 방 목록을 조회한다.")

@@ -19,8 +19,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class ReviewController {
-    @Autowired
-    private ReviewService reviewService;
+
+    private final ReviewService reviewService;
+
+    ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 
     @PostMapping("/review/write")
     @ApiOperation(value="후기 작성", notes="실 사용 후 예약에 대한 후기를 작성한다.")

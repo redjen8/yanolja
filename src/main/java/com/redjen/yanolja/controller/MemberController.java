@@ -23,11 +23,14 @@ import java.util.Map;
 @RequestMapping("/api/member")
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+
+    MemberController(MemberService memberService, JwtService jwtService) {
+        this.memberService = memberService;
+        this.jwtService = jwtService;
+    }
 
     @GetMapping("/get/{idx}")
     @ApiOperation(value="사용자 정보 조회", notes="해당 인덱스의 사용자 정보를 조회한다.")
